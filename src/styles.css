@@ -461,6 +461,38 @@ body.video-playing .texture-overlay {
     vertical-align: middle;
 }
 
+/* ==========================================
+   PREMIUM MOBILE RESPONSIVE CHAT DRAWER
+   ========================================== */
+
+@media (max-width: 640px) {
+    #roble-assistant-chat {
+        width: 100% !important;
+        height: 85vh !important;
+        max-height: 85vh !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 !important;
+        border-radius: 24px 24px 0 0 !important;
+        border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15) !important;
+        z-index: 70 !important;
+    }
+
+    #roble-assistant-messages {
+        padding: 12px !important;
+        gap: 8px !important;
+    }
+
+    /* Prevent body scroll when chat drawer is open on mobile */
+    body.assistant-open {
+        overflow: hidden !important;
+    }
+}
+
 
 
 

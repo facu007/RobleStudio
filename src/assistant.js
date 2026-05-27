@@ -58,6 +58,21 @@ export function initRobleAssistant() {
                 isRecording = false;
                 micBtn.classList.remove('mic-recording');
                 micBtn.querySelector('span').textContent = 'mic';
+                inputField.placeholder = 'Escribe tu consulta estratégica...';
+
+                if (event.error === 'not-allowed') {
+                    addMessage('bot', `
+                        <p class="font-bold text-[#db790a] mb-1 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-xs">lock</span> 
+                            Permiso de Micrófono Requerido
+                        </p>
+                        <p class="mb-2">No he podido acceder a tu micrófono. Esto suele ocurrir por dos motivos:</p>
+                        <ul class="list-disc pl-4 space-y-1.5 mb-1 text-[10px] leading-relaxed">
+                            <li><strong>Permisos del navegador:</strong> Asegúrate de otorgar permisos de micrófono en la configuración de la barra de direcciones.</li>
+                            <li><strong>Entorno Seguro (HTTPS):</strong> Por motivos de seguridad, los navegadores móviles bloquean el reconocimiento de voz en conexiones HTTP locales no seguras (como redes Wi-Fi locales). En producción bajo un dominio **HTTPS**, funcionará perfectamente de forma inmediata.</li>
+                        </ul>
+                    `);
+                }
             };
 
             micBtn.addEventListener('click', () => {
@@ -109,6 +124,9 @@ export function initRobleAssistant() {
             iconChat.classList.add('hidden');
             iconClose.classList.remove('hidden');
             
+            // Add scroll-lock class for mobile viewports
+            document.body.classList.add('assistant-open');
+
             // Focus on input field on desktop
             if (!window.matchMedia('(pointer: coarse)').matches) {
                 setTimeout(() => inputField.focus(), 300);
@@ -130,6 +148,9 @@ export function initRobleAssistant() {
             });
             iconClose.classList.add('hidden');
             iconChat.classList.remove('hidden');
+            
+            // Remove scroll-lock class
+            document.body.classList.remove('assistant-open');
         }
     }
 
