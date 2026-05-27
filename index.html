@@ -20,14 +20,27 @@
       "@type": "ProfessionalService",
       "name": "Roble Studio",
       "image": "https://roblestudio.com/favicon.ico",
-      "description": "Artesanía digital y desarrollo web a medida con integraciones de Inteligencia Artificial para marcas y negocios premium.",
+      "description": "Artesanía digital y desarrollo web a medida con integraciones de Inteligencia Artificial para marcas y negocios premium. Construimos activos que captan clientes.",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Ciudad de México",
         "addressCountry": "MX"
       },
       "url": "https://roblestudio.com",
-      "priceRange": "$$$$"
+      "priceRange": "$$$$",
+      "sameAs": [
+        "https://www.linkedin.com/company/roblestudio",
+        "https://www.instagram.com/roblestudio"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hola@roblestudio.com",
+        "contactType": "customer service"
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Equipo Roble"
+      }
     }
     </script>
 
@@ -133,6 +146,7 @@
                     <!-- Video Wrapper (Elegant card with rounded corners, borders, and shadows, transitioning smoothly into a circular logo) -->
                     <div id="hero-video-wrapper" class="w-full max-w-3xl aspect-[16/9] transition-all duration-[1000ms] ease-in-out flex items-center justify-center mx-auto relative overflow-hidden rounded-3xl border-4 border-outline-variant/20 dark:border-outline-variant/10 shadow-2xl z-10">
                         <video id="hero-video" class="w-full h-full object-cover transition-all duration-[1000ms] cubic-bezier(0.4, 0, 0.2, 1) pointer-events-none" autoplay playsinline poster="video/arbol.jpeg">
+                            <source src="video/Roble.webm" type="video/webm">
                             <source src="video/Roble.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -838,6 +852,10 @@
                         </div>
                         
                         <form id="booking-form" class="space-y-4">
+                            <!-- Honeypot anti-spam (tabindex="-1" and completely hidden by CSS/classes) -->
+                            <div class="hidden" aria-hidden="true">
+                                <input type="text" id="booking-honeypot" name="booking-honeypot" tabindex="-1" autocomplete="off"/>
+                            </div>
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-on-surface-variant dark:text-inverse-primary/80 mb-1 uppercase tracking-wider" for="client-name">Tu nombre completo *</label>

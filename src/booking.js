@@ -416,6 +416,14 @@ export function initBooking() {
     bookingForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
+        // Honeypot anti-spam check
+        const honeypot = document.getElementById('booking-honeypot')?.value;
+        if (honeypot) {
+            console.warn('Spam detected via Honeypot field.');
+            resetBookingStepToStart();
+            return;
+        }
+
         if (!selectedDate || !selectedTime) {
             return;
         }

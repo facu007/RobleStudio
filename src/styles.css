@@ -375,4 +375,49 @@ body.video-playing .texture-overlay {
     background: rgba(107, 79, 58, 0.45);
 }
 
+/* ==========================================
+   CLS PREVENTION & ULTRA-MOBILE RESPONSIVE
+   ========================================== */
+
+/* Fix aspect ratios for project card containers to prevent cumulative layout shift (CLS) */
+.project-card .aspect-video {
+    aspect-ratio: 16 / 9 !important;
+    background-color: rgba(28, 28, 25, 0.05);
+}
+
+.dark .project-card .aspect-video {
+    background-color: rgba(243, 240, 235, 0.05);
+}
+
+/* Ultra-mobile media queries for booking calendar & layout optimization */
+@media (max-width: 360px) {
+    #calendar-days-grid button {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 10px !important;
+    }
+    
+    #time-slots-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+    
+    #time-slots-container button {
+        padding: 6px 4px !important;
+        font-size: 10px !important;
+    }
+
+    .px-margin-mobile {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+    
+    /* Optimize the header navigation spacing on extra small mobile displays */
+    nav .flex.justify-between {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+}
+
+
 
