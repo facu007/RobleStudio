@@ -123,40 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Programmatic Autoplay with Sound (Muted fallback for browser compliance)
-        heroVideo.muted = false;
-        
-        const playPromise = heroVideo.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                console.log("Video reproducido con sonido exitosamente.");
-            }).catch(error => {
-                console.log("Autoplay con sonido bloqueado. Reproduciendo silenciado como respaldo.");
-                heroVideo.muted = true;
-                heroVideo.play().catch(e => console.log("Fallo al reproducir silenciado:", e));
-                
-                // Passive activation: Unmute automatically on first interaction anywhere on the page
-                const passiveUnmute = () => {
-                    if (heroVideo && heroVideo.muted) {
-                        heroVideo.muted = false;
-                        justUnmuted = true;
-                        console.log("Sonido activado de forma pasiva tras la primera interacción del usuario.");
-                        
-                        if (heroVideo.paused) {
-                            heroVideo.play().catch(e => console.log("Fallo al reproducir tras activar sonido pasivamente:", e));
-                        }
-                        
-                        setTimeout(() => {
-                            justUnmuted = false;
-                        }, 100);
-                    }
-                    document.removeEventListener('click', passiveUnmute);
-                    document.removeEventListener('touchstart', passiveUnmute);
-                };
-                document.addEventListener('click', passiveUnmute, { passive: true });
-                document.addEventListener('touchstart', passiveUnmute, { passive: true });
-            });
-        }
+        // Programmatic Autoplay (Muted for browser compliance and user experience)
+        heroVideo.muted = true;
+        heroVideo.play().catch(e => console.log("Fallo al reproducir silenciado:", e));
     }
 
     // ==========================================
