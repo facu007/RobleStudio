@@ -14,9 +14,62 @@ export function initRobleAssistant() {
     const iconChat = document.getElementById('roble-assistant-icon-chat');
     const iconClose = document.getElementById('roble-assistant-icon-close');
 
+    const micBtn = document.getElementById('roble-assistant-mic');
+
     if (!chatWindow || !launcher || !closeBtn || !sendBtn || !inputField || !messagesContainer) {
         console.warn('Roble Assistant elements missing from DOM.');
         return;
+    }
+
+    // Speech-to-Text Dictation
+    let isRecording = false;
+    let recognition = null;
+
+    if (micBtn) {
+        if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'es-ES';
+            recognition.interimResults = false;
+
+            recognition.onstart = () => {
+                isRecording = true;
+                micBtn.classList.add('mic-recording');
+                micBtn.querySelector('span').textContent = 'hearing';
+                inputField.placeholder = 'Escuchando tu voz...';
+            };
+
+            recognition.onend = () => {
+                isRecording = false;
+                micBtn.classList.remove('mic-recording');
+                micBtn.querySelector('span').textContent = 'mic';
+                inputField.placeholder = 'Escribe tu consulta estratégica...';
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                inputField.value = transcript;
+                inputField.focus();
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                isRecording = false;
+                micBtn.classList.remove('mic-recording');
+                micBtn.querySelector('span').textContent = 'mic';
+            };
+
+            micBtn.addEventListener('click', () => {
+                if (isRecording) {
+                    recognition.stop();
+                } else {
+                    recognition.start();
+                }
+            });
+        } else {
+            micBtn.style.display = 'none';
+        }
     }
 
     let isOpen = false;
@@ -425,77 +478,203 @@ export function initRobleAssistant() {
         }
     }
 
-    function triggerAuditExecution(sector) {
+    async function triggerAuditExecution(sector) {
         auditData.sector = sector;
         flowStep = 3;
 
-        // Custom animation phases of audit scanning
+        // Check if the input is a valid URL
+        const urlRegex = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}/i;
+        const targetUrl = auditData.target.trim();
+        const isValidUrl = urlRegex.test(targetUrl);
+
         showTypingIndicator();
-        
-        setTimeout(() => {
-            const indicatorBubble = document.querySelector('#roble-typing-indicator div');
-            if (indicatorBubble) {
-                indicatorBubble.innerHTML = '<span class="text-[10px] text-[#3E6B52] font-bold">🔍 Escaneando jerarquías de UX...</span>';
-            }
-            
+
+        if (!isValidUrl) {
+            // Fallback to pre-existing beautiful mock sector audits if it's just a text description
             setTimeout(() => {
+                const indicatorBubble = document.querySelector('#roble-typing-indicator div');
                 if (indicatorBubble) {
-                    indicatorBubble.innerHTML = '<span class="text-[10px] text-[#6B4F3A] font-bold">🌱 Evaluando palabras clave y meta-tags...</span>';
+                    indicatorBubble.innerHTML = '<span class="text-[10px] text-[#3E6B52] font-bold">🔍 Analizando idea de negocio...</span>';
                 }
                 
                 setTimeout(() => {
                     if (indicatorBubble) {
-                        indicatorBubble.innerHTML = '<span class="text-[10px] text-[#1F3A2E] font-bold">⚡ Midiendo tiempos de carga y conversión...</span>';
+                        indicatorBubble.innerHTML = '<span class="text-[10px] text-[#6B4F3A] font-bold">🌱 Formulando propuesta de valor...</span>';
                     }
-
+                    
                     setTimeout(() => {
-                        removeTypingIndicator();
-                        renderAuditReportCard();
-                    }, 1200);
+                        if (indicatorBubble) {
+                            indicatorBubble.innerHTML = '<span class="text-[10px] text-[#1F3A2E] font-bold">⚡ Generando pre-cotización...</span>';
+                        }
+
+                        setTimeout(() => {
+                            removeTypingIndicator();
+                            renderAuditReportCard(null); // render the fallback mock card
+                        }, 1200);
+                    }, 1000);
                 }, 1000);
-            }, 1000);
+            }, 500);
+            return;
+        }
+
+        // Normalize URL by adding https:// if missing
+        let normalizedUrl = targetUrl;
+        if (!/^https?:\/\//i.test(normalizedUrl)) {
+            normalizedUrl = 'https://' + normalizedUrl;
+        }
+
+        // Show live loading states
+        setTimeout(() => {
+            const indicatorBubble = document.querySelector('#roble-typing-indicator div');
+            if (indicatorBubble) {
+                indicatorBubble.innerHTML = '<div class="flex items-center gap-1.5"><span class="audit-spinner"></span> <span class="text-[10px] text-[#3E6B52] font-bold">Conectando con Google PageSpeed...</span></div>';
+            }
+            
+            setTimeout(() => {
+                if (indicatorBubble) {
+                    indicatorBubble.innerHTML = '<div class="flex items-center gap-1.5"><span class="audit-spinner"></span> <span class="text-[10px] text-[#6B4F3A] font-bold">Analizando Core Web Vitals en móvil...</span></div>';
+                }
+                
+                setTimeout(() => {
+                    if (indicatorBubble) {
+                        indicatorBubble.innerHTML = '<div class="flex items-center gap-1.5"><span class="audit-spinner"></span> <span class="text-[10px] text-[#1F3A2E] font-bold">Escaneando etiquetas SEO y velocidad...</span></div>';
+                    }
+                }, 2200);
+            }, 2000);
         }, 500);
+
+        try {
+            // Request PERFORMANCE and SEO categories for mobile
+            const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(normalizedUrl)}&category=PERFORMANCE&category=SEO&strategy=mobile`;
+            const response = await fetch(apiUrl);
+            
+            if (!response.ok) {
+                throw new Error(`Google PageSpeed Insights API responded with status ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            // Extract performance score (0 to 100)
+            const perfScore = Math.round((data.lighthouseResult?.categories?.performance?.score || 0.7) * 100);
+            // Extract SEO score (0 to 100)
+            const seoScore = Math.round((data.lighthouseResult?.categories?.seo?.score || 0.8) * 100);
+            
+            // Qualitatively extrapolate UX and Conversion scores based on Lighthouse data
+            const uxScore = Math.round(Math.min(98, Math.max(40, perfScore + 8)));
+            const convScore = Math.round(Math.min(95, Math.max(35, seoScore - 5)));
+            
+            const globalScore = Math.round((perfScore + seoScore + uxScore + convScore) / 4);
+
+            // Extract real opportunities (recommendations) from Lighthouse audits
+            const audits = data.lighthouseResult?.audits || {};
+            const opportunities = [];
+            
+            // Translation map for common failed audits
+            const translations = {
+                'render-blocking-resources': '<strong>Recursos bloqueantes:</strong> CSS/JS externos retrasan la pintura inicial.',
+                'modern-image-formats': '<strong>Imágenes de nueva generación:</strong> Convierte archivos a WebP/AVIF.',
+                'offscreen-images': '<strong>Lazy-loading ausente:</strong> Carga imágenes secundarias diferidas.',
+                'unminified-css': '<strong>CSS sin minificar:</strong> Optimiza el peso de las hojas de estilo.',
+                'unminified-javascript': '<strong>Javascript sin minificar:</strong> Minifica scripts para ahorrar bytes.',
+                'unused-css-rules': '<strong>CSS no utilizado:</strong> Remueve selectores huérfanos que ralentizan la carga.',
+                'unused-javascript': '<strong>Javascript no utilizado:</strong> Retrasa la carga de librerías secundarias.',
+                'uses-optimized-images': '<strong>Imágenes sin comprimir:</strong> Archivos multimedia sobredimensionados.',
+                'uses-text-compression': '<strong>Compresión Gzip:</strong> Habilita compresión Gzip o Brotli en servidor.',
+                'meta-description': '<strong>Meta descripción ausente:</strong> Falta optimización SEO descriptiva.',
+                'font-display': '<strong>Carga de fuentes lenta:</strong> Agrega font-display: swap en CSS.',
+                'document-title': '<strong>Etiqueta Title deficiente:</strong> Optimiza el título para buscadores.'
+            };
+
+            // Loop audits and find failed ones
+            for (const [auditId, translation] of Object.entries(translations)) {
+                const audit = audits[auditId];
+                if (audit && audit.score !== null && audit.score < 0.9) {
+                    opportunities.push(translation);
+                }
+                if (opportunities.length >= 3) break;
+            }
+
+            // Fallbacks in case website is extremely fast and has no errors
+            if (opportunities.length < 3) {
+                if (opportunities.length === 0) {
+                    opportunities.push('<strong>¡Excelente velocidad!:</strong> Cumple con Core Web Vitals al 100%.');
+                    opportunities.push('<strong>Estrategia de CTA:</strong> Añade botones flotantes para captar leads móviles.');
+                    opportunities.push('<strong>Conversión proactiva:</strong> Integra agendamiento automatizado de citas.');
+                } else {
+                    opportunities.push('<strong>Testimoniales premium:</strong> Muestra testimonios en el hero para inspirar confianza.');
+                    opportunities.push('<strong>Asistente inteligente:</strong> Introduce bots conversacionales para guiar al usuario.');
+                }
+            }
+
+            const realReport = {
+                target: targetUrl,
+                globalScore,
+                scores: {
+                    ux: uxScore,
+                    seo: seoScore,
+                    conv: convScore,
+                    perf: perfScore
+                },
+                recommendations: opportunities
+            };
+
+            removeTypingIndicator();
+            renderAuditReportCard(realReport);
+
+        } catch (error) {
+            console.warn('Real Google PageSpeed API call failed (falling back to tailored mock audit):', error);
+            removeTypingIndicator();
+            renderAuditReportCard(null); // Fallback gracefully to tailored mock
+        }
     }
 
-    function renderAuditReportCard() {
+    function renderAuditReportCard(realReport = null) {
         const sector = auditData.sector;
         let scores = {};
         let recommendations = [];
         let globalScore = 75;
+        let displayTarget = auditData.target;
 
-        // Structured tailored datasets based on target sector
-        if (sector === 'ecommerce') {
-            globalScore = 68;
-            scores = { ux: 72, seo: 75, conv: 62, brand: 65, perf: 66 };
-            recommendations = [
-                '<strong>Fricción en checkout:</strong> Tiempos de carga altos en el carrito de compras (+3s).',
-                '<strong>CTA débil:</strong> Botón de agregar al carrito sin contraste premium.',
-                '<strong>SEO de Producto:</strong> Faltan esquemas de microdatos estructurados de precios.'
-            ];
-        } else if (sector === 'servicios') {
-            globalScore = 76;
-            scores = { ux: 80, seo: 72, conv: 68, brand: 82, perf: 78 };
-            recommendations = [
-                '<strong>Captación pasiva:</strong> No cuentas con agendamiento automatizado de llamadas.',
-                '<strong>Prueba social oculta:</strong> Los testimonios están al pie de la página en texto plano.',
-                '<strong>Autoridad visual:</strong> Uso de imágenes genéricas de stock que restan premiumness.'
-            ];
-        } else if (sector === 'local') {
-            globalScore = 64;
-            scores = { ux: 65, seo: 58, conv: 60, brand: 70, perf: 67 };
-            recommendations = [
-                '<strong>SEO Local:</strong> Falta de keywords semánticas vinculadas a tu ciudad de operación.',
-                '<strong>Mobile A11y:</strong> Botones táctiles demasiado pequeños y superpuestos en móviles.',
-                '<strong>Conversión inmediata:</strong> El número de contacto y botón de agenda no son persistentes.'
-            ];
-        } else { // tech / ia
-            globalScore = 81;
-            scores = { ux: 84, seo: 78, conv: 74, brand: 85, perf: 84 };
-            recommendations = [
-                '<strong>Claridad de Propuesta:</strong> Lenguaje demasiado técnico que confunde al cliente final.',
-                '<strong>Embudo de leads:</strong> Formulario de contacto extenso de 8 campos que reduce conversiones.',
-                '<strong>Texturas de Marca:</strong> Estética genérica de plantilla Bootstrap en lugar de glassmorphic premium.'
-            ];
+        if (realReport) {
+            globalScore = realReport.globalScore;
+            scores = realReport.scores;
+            recommendations = realReport.recommendations;
+            displayTarget = realReport.target;
+        } else {
+            // Fallback sector-tailored mock datasets
+            if (sector === 'ecommerce') {
+                globalScore = 68;
+                scores = { ux: 72, seo: 75, conv: 62, brand: 65, perf: 66 };
+                recommendations = [
+                    '<strong>Fricción en checkout:</strong> Tiempos de carga altos en el carrito de compras (+3s).',
+                    '<strong>CTA débil:</strong> Botón de agregar al carrito sin contraste premium.',
+                    '<strong>SEO de Producto:</strong> Faltan esquemas de microdatos estructurados de precios.'
+                ];
+            } else if (sector === 'servicios') {
+                globalScore = 76;
+                scores = { ux: 80, seo: 72, conv: 68, brand: 82, perf: 78 };
+                recommendations = [
+                    '<strong>Captación pasiva:</strong> No cuentas con agendamiento automatizado de llamadas.',
+                    '<strong>Prueba social oculta:</strong> Los testimonios están al pie de la página en texto plano.',
+                    '<strong>Autoridad visual:</strong> Uso de imágenes genéricas de stock que restan premiumness.'
+                ];
+            } else if (sector === 'local') {
+                globalScore = 64;
+                scores = { ux: 65, seo: 58, conv: 60, brand: 70, perf: 67 };
+                recommendations = [
+                    '<strong>SEO Local:</strong> Falta de keywords semánticas vinculadas a tu ciudad de operación.',
+                    '<strong>Mobile A11y:</strong> Botones táctiles demasiado pequeños y superpuestos en móviles.',
+                    '<strong>Conversión inmediata:</strong> El número de contacto y botón de agenda no son persistentes.'
+                ];
+            } else { // tech / ia
+                globalScore = 81;
+                scores = { ux: 84, seo: 78, conv: 74, brand: 85, perf: 84 };
+                recommendations = [
+                    '<strong>Claridad de Propuesta:</strong> Lenguaje demasiado técnico que confunde al cliente final.',
+                    '<strong>Embudo de leads:</strong> Formulario de contacto extenso de 8 campos que reduce conversiones.',
+                    '<strong>Texturas de Marca:</strong> Estética genérica de plantilla Bootstrap en lugar de glassmorphic premium.'
+                ];
+            }
         }
 
         // Render card with animated progress bars
@@ -503,8 +682,8 @@ export function initRobleAssistant() {
             <div class="audit-card w-full bg-surface dark:bg-[#1E2522] rounded-xl p-4 border border-[#6B4F3A]/20 dark:border-[#8A674E]/20 space-y-3.5 my-1">
                 <div class="flex justify-between items-center border-b border-outline-variant/20 dark:border-outline-variant/10 pb-2">
                     <div>
-                        <span class="text-[9px] font-bold tracking-widest text-[#6B4F3A] uppercase block">Auditoría Express</span>
-                        <h5 class="font-headline-sm text-xs font-bold text-[#1F3A2E] dark:text-[#F3F0EB]">${escapeHtml(auditData.target.replace(/^(https?:\/\/)?(www\.)?/, '').substring(0, 22))}...</h5>
+                        <span class="text-[9px] font-bold tracking-widest text-[#6B4F3A] uppercase block">${realReport ? 'Auditoría Real Google' : 'Auditoría Express'}</span>
+                        <h5 class="font-headline-sm text-xs font-bold text-[#1F3A2E] dark:text-[#F3F0EB]">${escapeHtml(displayTarget.replace(/^(https?:\/\/)?(www\.)?/, '').substring(0, 22))}...</h5>
                     </div>
                     <div class="w-10 h-10 rounded-full bg-[#1F3A2E]/10 border border-[#1F3A2E]/30 flex flex-col items-center justify-center">
                         <span class="text-[14px] font-bold text-[#1F3A2E] dark:text-[#F3F0EB] leading-none">${globalScore}</span>

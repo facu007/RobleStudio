@@ -419,5 +419,48 @@ body.video-playing .texture-overlay {
     }
 }
 
+/* ==========================================
+   VOICE RECORDING MIC PULSE & AUDIT SPINNER
+   ========================================== */
+
+@keyframes micPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(219, 121, 10, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(219, 121, 10, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(219, 121, 10, 0);
+        transform: scale(1);
+    }
+}
+
+.mic-recording {
+    animation: micPulse 1.5s infinite !important;
+    background-color: #db790a !important;
+    color: #ffffff !important;
+}
+
+@keyframes auditSpinner {
+    to { transform: rotate(360deg); }
+}
+
+.audit-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(107, 79, 58, 0.2);
+    border-top-color: #db790a;
+    border-radius: 50%;
+    animation: auditSpinner 0.6s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
 
 
