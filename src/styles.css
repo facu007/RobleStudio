@@ -1,0 +1,378 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================
+   ORGANIC TECH CUSTOM STYLES
+   ========================================== */
+
+.texture-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.organic-gradient {
+    background: linear-gradient(135deg, rgba(5, 26, 15, 0.05) 0%, rgba(128, 85, 51, 0.05) 100%);
+}
+
+.dark .organic-gradient {
+    background: linear-gradient(135deg, rgba(5, 26, 15, 0.6) 0%, rgba(39, 17, 0, 0.4) 100%);
+}
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(28, 28, 25, 0.05);
+    border-radius: 9999px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(243, 240, 235, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #805533;
+    border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #db790a;
+}
+
+/* Immersive Video Cinema Mode Transitions */
+body {
+    transition: background-color 1000ms cubic-bezier(0.4, 0, 0.2, 1), color 300ms ease-in-out !important;
+}
+
+nav {
+    transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), transform 700ms cubic-bezier(0.4, 0, 0.2, 1), background-color 300ms ease-in-out, border-color 300ms ease-in-out !important;
+}
+
+main {
+    transition: padding-top 1000ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.texture-overlay, #hero-section .blur-3xl {
+    transition: opacity 1000ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Unified transition for Hero elements to ensure cinematic layout morphing */
+#hero-section, 
+#hero-section .max-w-container-max-width, 
+#hero-section .max-w-container-max-width > div,
+#hero-video-wrapper,
+#hero-reveal-content {
+    transition: all 1000ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Cinema / Video Playing Mode - Perfect Viewport Centering & Blackout */
+body.video-playing {
+    background-color: #000000 !important;
+    overflow: hidden !important;
+}
+
+body.video-playing nav {
+    opacity: 0 !important;
+    transform: translateY(-20px) !important;
+    pointer-events: none !important;
+}
+
+body.video-playing main {
+    padding-top: 0 !important;
+}
+
+/* Reset Hero container boundaries for cinema vertical alignment */
+body.video-playing #hero-section {
+    min-height: 100vh !important;
+    background: #000000 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 0 !important;
+}
+
+body.video-playing #hero-section .max-w-container-max-width {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 100vh !important;
+}
+
+body.video-playing #hero-section .max-w-container-max-width > div {
+    min-height: 100vh !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    gap: 0 !important;
+}
+
+/* Video Card styling when centered - mathematically solid aspect ratio preventing any browser-level height collapse */
+body.video-playing #hero-video-wrapper {
+    width: min(90vw, 1000px) !important;
+    height: calc(min(90vw, 1000px) * 9 / 16) !important;
+    max-width: min(90vw, 1000px) !important;
+    max-height: 75vh !important;
+    margin: 0 auto !important;
+    border-radius: 24px !important;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    cursor: pointer !important;
+}
+
+/* Glassmorphic "Saltar Intro" Skip Button */
+#skip-intro-btn {
+    position: fixed;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    right: calc(1.5rem + env(safe-area-inset-right, 0px));
+    opacity: 0;
+    pointer-events: none;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+}
+
+@media (min-width: 768px) {
+    #skip-intro-btn {
+        bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+        right: calc(2rem + env(safe-area-inset-right, 0px));
+    }
+}
+
+body.video-playing #skip-intro-btn {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* Completely collapse text elements in flow to prevent off-centering */
+body.video-playing #hero-reveal-content {
+    width: 0 !important;
+    max-width: 0 !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+body.video-playing #hero-section .blur-3xl {
+    opacity: 0 !important;
+}
+
+body.video-playing .texture-overlay {
+    opacity: 0 !important;
+}
+
+
+
+/* ==========================================
+   CIRCULAR THEME TRANSITION
+   ========================================== */
+
+.theme-reveal-circle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-reveal-circle.reveal-active {
+    transform: translate(-50%, -50%) scale(3.5);
+}
+
+/* ==========================================
+   3D TILT & GLARE EFFECT
+   ========================================== */
+
+.tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+}
+
+.tilt-card-inner {
+    transform: translateZ(20px);
+}
+
+.glare-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 80%);
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+    z-index: 5;
+}
+
+.tilt-card:hover .glare-overlay {
+    opacity: 1;
+}
+
+/* ==========================================
+   PREMIUM CUSTOM ACORN GROWTH CURSOR
+   ========================================== */
+
+/* Hiding the default cursor only on devices that have a real pointer (mouse) */
+@media (pointer: fine) {
+    html, body, a, button, [role="button"], input, textarea, select, .slick-arrow, .swiper-button {
+        cursor: none !important;
+    }
+
+    #roble-cursor {
+        display: flex;
+    }
+}
+
+/* Base cursor layout */
+#roble-cursor {
+    pointer-events: none;
+    position: fixed;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    will-change: transform;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+}
+
+/* Subtle organic floating animation */
+@keyframes acornFloat {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-2.5px) rotate(2deg);
+    }
+}
+
+#roble-cursor-visual {
+    animation: acornFloat 5s ease-in-out infinite;
+    transform-origin: center bottom;
+}
+
+/* Anillo exterior para hover sobre portafolios */
+#roble-cursor-ring {
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                height 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+                background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Soft resplandor */
+#roble-cursor-glow {
+    width: 48px;
+    height: 48px;
+    filter: blur(14px);
+    opacity: 0;
+    transition: background-color 0.4s ease, opacity 0.4s ease;
+}
+
+/* Estilos de las raíces de clic */
+.ripple-root {
+    stroke-dasharray: 20;
+    stroke-dashoffset: 20;
+    transition: stroke-dashoffset 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================
+   PREMIUM CHAT ROBLE ASSISTANT & AUDIT
+   ========================================== */
+
+/* Floating Launcher pulse float */
+@keyframes launcherFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.02);
+    }
+}
+
+#roble-assistant-launcher {
+    animation: launcherFloat 5s ease-in-out infinite;
+    box-shadow: 0 12px 36px rgba(31, 58, 46, 0.3);
+}
+
+/* Typing bounce dots */
+.typing-dot {
+    animation: typingBounce 1.2s infinite ease-in-out both;
+}
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typingBounce {
+    0%, 80%, 100% { 
+        transform: scale(0.3);
+        opacity: 0.3;
+    }
+    40% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Custom fade up for message appearance */
+@keyframes messageFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-message {
+    animation: messageFadeUp 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Custom audit progress bar fill */
+.progress-bar-fill {
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scrollbar behaviors for message stream */
+#roble-assistant-messages::-webkit-scrollbar {
+    width: 4px;
+}
+#roble-assistant-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+#roble-assistant-messages::-webkit-scrollbar-thumb {
+    background: rgba(107, 79, 58, 0.25);
+    border-radius: 99px;
+}
+#roble-assistant-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(107, 79, 58, 0.45);
+}
+
+
