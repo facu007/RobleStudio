@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend": "node server.js",
+    "dev:all": "node -e \"console.log('\\n====================================================================='); console.log('🌿 INSTRUCCIONES DE DESARROLLO DE ROBLE STUDIO'); console.log('====================================================================='); console.log('1. Abre una terminal y corre el BACKEND:'); console.log('   npm run backend'); console.log('\\n2. Abre otra terminal y corre el FRONTEND:'); console.log('   npm run dev'); console.log('=====================================================================\\n')\""
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",

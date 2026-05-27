@@ -121,25 +121,22 @@ function normalizeStoredBooking(data) {
 }
 
 async function postBookingWebhook(bookingData) {
-    if (!bookingWebhookUrl) {
-        console.info('Booking webhook not configured; skipping remote submission.');
-        return false;
-    }
+    const targetUrl = bookingWebhookUrl || '/api/booking';
 
     try {
-        const response = await fetch(bookingWebhookUrl, {
+        const response = await fetch(targetUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(bookingData)
         });
 
         if (!response.ok) {
-            throw new Error(`Booking webhook responded with ${response.status}`);
+            throw new Error(`Booking endpoint responded with ${response.status}`);
         }
 
         return true;
     } catch (error) {
-        console.warn('Booking webhook submission failed:', error);
+        console.warn('Booking submission failed:', error);
         return false;
     }
 }

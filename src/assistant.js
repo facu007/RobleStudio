@@ -90,6 +90,7 @@ export function initRobleAssistant() {
         target: '', // URL or Description
         sector: ''
     };
+    let conversationHistory = [];
 
     // 1. Toggle Chat Drawer
     function toggleChat(forceState = null) {
@@ -166,25 +167,22 @@ export function initRobleAssistant() {
     }
 
     async function sendLeadToWebhook(payload) {
-        if (!assistantWebhookUrl) {
-            console.info('Assistant webhook not configured; skipping remote submission.');
-            return false;
-        }
+        const targetUrl = assistantWebhookUrl || '/api/lead';
 
         try {
-            const response = await fetch(assistantWebhookUrl, {
+            const response = await fetch(targetUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
             if (!response.ok) {
-                throw new Error(`Assistant webhook responded with ${response.status}`);
+                throw new Error(`Assistant endpoint responded with ${response.status}`);
             }
 
             return true;
         } catch (error) {
-            console.error('Error sending lead to assistant webhook:', error);
+            console.error('Error sending lead data:', error);
             return false;
         }
     }
@@ -767,8 +765,8 @@ export function initRobleAssistant() {
         ]);
     }
 
-    // 7. General Custom Prompt / Heuristic Routing
-    function handleHeuristicUserInput(text) {
+    // 7. General Custom Prompt / Heuristic Routing & OpenAI API Integration
+    async function handleHeuristicUserInput(text) {
         const query = text.toLowerCase().trim();
         
         // Form active flows take priority
@@ -783,88 +781,126 @@ export function initRobleAssistant() {
 
         showTypingIndicator();
 
-        setTimeout(() => {
+        // Push user query to history
+        conversationHistory.push({ role: 'user', content: text });
+
+        try {
+            // Attempt to retrieve AI response from backend
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ messages: conversationHistory })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Chat API responded with status ${response.status}`);
+            }
+
+            const data = await response.json();
+            const reply = data.reply;
+
             removeTypingIndicator();
 
-            // Keyword Router
-            if (query.includes('precio') || query.includes('costo') || query.includes('cuanto cuesta') || query.includes('presupuesto')) {
-                addMessage('bot', `
-                    <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Inversión Estratégica en Roble Studio</p>
-                    <p class="mb-2">No construimos plantillas genéricas; creamos activos web a medida diseñados para generar retornos reales. Nuestras escalas de inversión recomendadas son:</p>
-                    <ul class="space-y-1 list-disc pl-4 mb-2">
-                        <li><strong>Sitios Corporativos Premium:</strong> $2,000 - $3,500 USD (enfocados en posicionamiento y captación).</li>
-                        <li><strong>E-commerce / Sistemas de Reserva:</strong> $3,500 - $5,500 USD (con pasarelas de pago y agendas automatizadas).</li>
-                        <li><strong>Ecosistemas Corporativos a Medida + IA:</strong> $6,000+ USD (integración de CRM, automatización de flujos e IA corporativa).</li>
-                    </ul>
-                    <p>Podemos hacerte una cotización express de forma inmediata en el chat.</p>
-                `);
-                
-                addQuickReplyChips([
-                    { text: '💼 Cotizar Proyecto', callback: () => startQuoteFlow() },
-                    { text: '🔙 Volver al inicio', callback: () => triggerWelcomeSequence() }
-                ]);
-            } 
-            else if (query.includes('barber') || query.includes('clinica') || query.includes('tienda') || query.includes('medico') || query.includes('local') || query.includes('abogado')) {
-                addMessage('bot', `
-                    <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Soluciones a Medida para tu Sector</p>
-                    <p class="mb-2">¡Excelente! Para este tipo de modelos de negocio, la clave reside en la <strong>fricción cero</strong>: automatizar reservas de turnos, integrar pagos ágiles y construir una imagen premium que inspire confianza instantánea.</p>
-                    <p class="mb-2">Un sitio web estratégico con integraciones de reservas puede ahorrarte hasta 12 horas semanales de gestión manual y aumentar tu conversión de visitas en un 40%.</p>
-                    <p>¿Te gustaría auditar tu web actual o pre-cotizar un ecosistema nuevo?</p>
-                `);
-                
-                addQuickReplyChips([
-                    { text: '🔍 Auditar mi web actual', callback: () => startAuditFlow() },
-                    { text: '💼 Cotizar ecosistema premium', callback: () => startQuoteFlow() },
-                    { text: '🔙 Volver al inicio', callback: () => triggerWelcomeSequence() }
-                ]);
-            }
-            else if (query.includes('seo') || query.includes('posicionamiento') || query.includes('google') || query.includes('visitas')) {
-                addMessage('bot', `
-                    <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Estructuras de SEO Semántico</p>
-                    <p class="mb-2">En Roble Studio diseñamos cada línea de código pensando en Google. Implementamos:</p>
-                    <ul class="space-y-1 list-disc pl-4 mb-2">
-                        <li><strong>Marcado JSON-LD:</strong> Estructuración de datos para búsquedas enriquecidas.</li>
-                        <li><strong>Rendimiento Extremo:</strong> Tiempos de carga de sub-segundo que benefician tu Core Web Vitals.</li>
-                        <li><strong>Estructura Semántica:</strong> Jerarquías H1-H6 curadas para tus palabras clave locales e internacionales.</li>
-                    </ul>
-                    <p>El posicionamiento orgánico con bases sólidas es el canal de captación más rentable a largo plazo.</p>
-                `);
-                
-                addQuickReplyChips([
-                    { text: '🔍 Auditar SEO de mi web', callback: () => startAuditFlow() },
-                    { text: '💼 Cotizar proyecto', callback: () => startQuoteFlow() }
-                ]);
-            }
-            else if (query.includes('ia') || query.includes('inteligencia artificial') || query.includes('automatizacion') || query.includes('bot')) {
-                addMessage('bot', `
-                    <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Integración de IA y Automatizaciones</p>
-                    <p class="mb-2">El futuro digital es inteligente. Automatizamos tus cimientos operativos para que te enfoques en crecer:</p>
-                    <ul class="space-y-1 list-disc pl-4 mb-2">
-                        <li><strong>Asistentes Inteligentes:</strong> Como el que estás usando ahora, que califican leads 24/7.</li>
-                        <li><strong>Automatizaciones de CRM:</strong> Sincronización automática de citas a agendas de Google, descargas de .ics y flujos post-llamada.</li>
-                        <li><strong>Integraciones Cloud:</strong> Conexiones robustas con Make, Zapier y APIs para eliminar tareas manuales repetitivas.</li>
-                    </ul>
-                    <p>Diseñamos herramientas que trabajan para ti, no al revés.</p>
-                `);
-                
-                addQuickReplyChips([
-                    { text: '💼 Cotizar automatizaciones', callback: () => startQuoteFlow() },
-                    { text: '📅 Agendar llamada estratégica', callback: () => scrollAndBook() }
-                ]);
-            }
-            else {
-                addMessage('bot', `
-                    <p class="mb-2">Es una consulta sumamente interesante. En **Roble Studio** enfocamos cada inquietud de diseño y tecnología bajo una óptica estratégica orientada a resultados concretos (aumentar ventas, consolidar marca premium o automatizar flujos).</p>
-                    <p class="mb-2">¿Te gustaría que realicemos una **Auditoría Express** de tu sitio actual o prefieres **cotizar un desarrollo premium** estructurado desde cero?</p>
-                `);
-                
-                addQuickReplyChips([
-                    { text: '🔍 Auditar mi web actual', callback: () => startAuditFlow() },
-                    { text: '💼 Cotizar proyecto premium', callback: () => startQuoteFlow() },
-                    { text: '📅 Agendar llamada', callback: () => scrollAndBook() }
-                ]);
-            }
-        }, 1200);
+            // Render bot message
+            addMessage('bot', reply, { allowHtml: true });
+
+            // Push bot response to history
+            conversationHistory.push({ role: 'assistant', content: reply });
+
+            // Offer strategic quick reply chips
+            addQuickReplyChips([
+                { text: '🔍 Auditar mi Web', callback: () => startAuditFlow() },
+                { text: '💼 Cotizar Proyecto', callback: () => startQuoteFlow() },
+                { text: '📅 Agendar Llamada', callback: () => scrollAndBook() }
+            ]);
+
+        } catch (error) {
+            console.warn('Real AI Chat API call failed; falling back to heuristic answers.', error);
+            
+            // Local fallback matching heuristic keyword router
+            setTimeout(() => {
+                removeTypingIndicator();
+
+                // Keyword Router
+                if (query.includes('precio') || query.includes('costo') || query.includes('cuanto cuesta') || query.includes('presupuesto')) {
+                    addMessage('bot', `
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Inversión Estratégica en Roble Studio</p>
+                        <p class="mb-2">No construimos plantillas genéricas; creamos activos web a medida diseñados para generar retornos reales. Nuestras escalas de inversión recomendadas son:</p>
+                        <ul class="space-y-1 list-disc pl-4 mb-2">
+                            <li><strong>Sitios Corporativos Premium:</strong> $2,000 - $3,500 USD (enfocados en posicionamiento y captación).</li>
+                            <li><strong>E-commerce / Sistemas de Reserva:</strong> $3,500 - $5,500 USD (con pasarelas de pago y agendas automatizadas).</li>
+                            <li><strong>Ecosistemas Corporativos a Medida + IA:</strong> $6,000+ USD (integración de CRM, automatización de flujos e IA corporativa).</li>
+                        </ul>
+                        <p>Podemos hacerte una cotización express de forma inmediata en el chat.</p>
+                    `);
+                    
+                    addQuickReplyChips([
+                        { text: '💼 Cotizar Proyecto', callback: () => startQuoteFlow() },
+                        { text: '🔙 Volver al inicio', callback: () => triggerWelcomeSequence() }
+                    ]);
+                } 
+                else if (query.includes('barber') || query.includes('clinica') || query.includes('tienda') || query.includes('medico') || query.includes('local') || query.includes('abogado')) {
+                    addMessage('bot', `
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Soluciones a Medida para tu Sector</p>
+                        <p class="mb-2">¡Excelente! Para este tipo de modelos de negocio, la clave reside en la <strong>fricción cero</strong>: automatizar reservas de turnos, integrar pagos ágiles y construir una imagen premium que inspire confianza instantánea.</p>
+                        <p class="mb-2">Un sitio web estratégico con integraciones de reservas puede ahorrarte hasta 12 horas semanales de gestión manual y aumentar tu conversión de visitas en un 40%.</p>
+                        <p>¿Te gustaría auditar tu web actual o pre-cotizar un ecosistema nuevo?</p>
+                    `);
+                    
+                    addQuickReplyChips([
+                        { text: '🔍 Auditar mi web actual', callback: () => startAuditFlow() },
+                        { text: '💼 Cotizar ecosistema premium', callback: () => startQuoteFlow() },
+                        { text: '🔙 Volver al inicio', callback: () => triggerWelcomeSequence() }
+                    ]);
+                }
+                else if (query.includes('seo') || query.includes('posicionamiento') || query.includes('google') || query.includes('visitas')) {
+                    addMessage('bot', `
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Estructuras de SEO Semántico</p>
+                        <p class="mb-2">En Roble Studio diseñamos cada línea de código pensando en Google. Implementamos:</p>
+                        <ul class="space-y-1 list-disc pl-4 mb-2">
+                            <li><strong>Marcado JSON-LD:</strong> Estructuración de datos para búsquedas enriquecidas.</li>
+                            <li><strong>Rendimiento Extremo:</strong> Tiempos de carga de sub-segundo que benefician tu Core Web Vitals.</li>
+                            <li><strong>Estructura Semántica:</strong> Jerarquías H1-H6 curadas para tus palabras clave locales e internacionales.</li>
+                        </ul>
+                        <p>El posicionamiento orgánico con bases sólidas es el canal de captación más rentable a largo plazo.</p>
+                    `);
+                    
+                    addQuickReplyChips([
+                        { text: '🔍 Auditar SEO de mi web', callback: () => startAuditFlow() },
+                        { text: '💼 Cotizar proyecto', callback: () => startQuoteFlow() }
+                    ]);
+                }
+                else if (query.includes('ia') || query.includes('inteligencia artificial') || query.includes('automatizacion') || query.includes('bot')) {
+                    addMessage('bot', `
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Integración de IA y Automatizaciones</p>
+                        <p class="mb-2">El futuro digital es inteligente. Automatizamos tus cimientos operativos para que te enfoques en crecer:</p>
+                        <ul class="space-y-1 list-disc pl-4 mb-2">
+                            <li><strong>Asistentes Inteligentes:</strong> Como el que estás usando ahora, que califican leads 24/7.</li>
+                            <li><strong>Automatizaciones de CRM:</strong> Sincronización automática de citas a agendas de Google, descargas de .ics y flujos post-llamada.</li>
+                            <li><strong>Integraciones Cloud:</strong> Conexiones robustas con Make, Zapier y APIs para eliminar tareas manuales repetitivas.</li>
+                        </ul>
+                        <p>Diseñamos herramientas que trabajan para ti, no al revés.</p>
+                    `);
+                    
+                    addQuickReplyChips([
+                        { text: '💼 Cotizar automatizaciones', callback: () => startQuoteFlow() },
+                        { text: '📅 Agendar llamada estratégica', callback: () => scrollAndBook() }
+                    ]);
+                }
+                else {
+                    addMessage('bot', `
+                        <p class="mb-2">Es una consulta sumamente interesante. En **Roble Studio** enfocamos cada inquietud de diseño y tecnología bajo una óptica estratégica orientada a resultados concretos (aumentar ventas, consolidar marca premium o automatizar flujos).</p>
+                        <p class="mb-2">¿Te gustaría que realicemos una **Auditoría Express** de tu sitio actual o prefieres **cotizar un desarrollo premium** estructurado desde cero?</p>
+                    `);
+                    
+                    addQuickReplyChips([
+                        { text: '🔍 Auditar mi web actual', callback: () => startAuditFlow() },
+                        { text: '💼 Cotizar proyecto premium', callback: () => startQuoteFlow() },
+                        { text: '📅 Agendar llamada', callback: () => scrollAndBook() }
+                    ]);
+                }
+            }, 1200);
+        }
     }
 
     // 8. Event Listeners for Inputs
