@@ -3,6 +3,7 @@
 // Crafted with Organic Precision and State-of-the-Art Interactive Logic
 // ==========================================================================
 
+import { gsap } from 'gsap';
 import { initCustomCursor } from './cursor.js';
 import { initRobleAssistant } from './assistant.js';
 import { initBooking } from './booking.js';
@@ -78,6 +79,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             // Remove cinema mode to restore page background, nav, and scrolling
             document.body.classList.remove('video-playing');
+
+            // Trigger premium bounce & rotate entrance animation for the assistant launcher
+            const launcher = document.getElementById('roble-assistant-launcher');
+            if (launcher) {
+                gsap.killTweensOf(launcher);
+                gsap.fromTo(launcher, 
+                    { scale: 0, opacity: 0, rotation: -90 },
+                    { 
+                        scale: 1, 
+                        opacity: 1, 
+                        rotation: 0, 
+                        duration: 1, 
+                        ease: 'back.out(1.8)', 
+                        delay: 0.6 
+                    }
+                );
+            }
         };
 
         // When video finishes playing, freeze on last frame and reveal title content

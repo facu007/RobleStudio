@@ -104,6 +104,14 @@ body.video-playing main {
     padding-top: 0 !important;
 }
 
+/* Hide Assistant during cinema video mode */
+body.video-playing #roble-assistant-launcher {
+    opacity: 0 !important;
+    transform: scale(0) !important;
+    pointer-events: none !important;
+    transition: none !important;
+}
+
 /* Reset Hero container boundaries for cinema vertical alignment */
 body.video-playing #hero-section {
     min-height: 100vh !important;
