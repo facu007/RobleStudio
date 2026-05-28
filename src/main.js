@@ -69,6 +69,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (heroRevealContent) {
                 heroRevealContent.classList.remove('md:w-0', 'opacity-0', 'max-h-0', 'pointer-events-none');
                 heroRevealContent.classList.add('md:w-[60%]', 'opacity-100', 'max-h-[800px]', 'pointer-events-auto');
+                
+                // Allow natural height expansion and prevent vertical clipping once transition is done
+                setTimeout(() => {
+                    heroRevealContent.style.maxHeight = 'none';
+                    heroRevealContent.classList.remove('overflow-hidden');
+                }, 1000);
             }
             // Remove cinema mode to restore page background, nav, and scrolling
             document.body.classList.remove('video-playing');

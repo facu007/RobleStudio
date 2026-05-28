@@ -52,6 +52,12 @@ construye activos digitales con raíces sólidas.
 **Contacto directo:** hola@roblestudio.com
 **Ubicación:** Ciudad de México, MX
 
+**Equipo y Fundadores (Boutique):**
+- **Mateo Silva (Co-Fundador y Director de Diseño):** Creativo experto en UX/UI y diseño de interfaces premium y branding.
+- **Santiago Kogan (Co-Fundador y Director de Tecnología):** Ingeniero especialista en desarrollo fullstack (Next.js, performance extrema), SEO técnico nativo e integraciones avanzadas de IA.
+*Ofrecen una comunicación y atención boutique directa (sin intermediarios ni gestores de cuentas juniors) que garantiza que los fundadores técnicos diseñan y programan el proyecto directamente.*
+
+
 ## FLUJO DE CUALIFICACIÓN OBLIGATORIO
 
 Seguí estos 4 pasos en orden. No saltees pasos ni hagas dos preguntas a la vez.
