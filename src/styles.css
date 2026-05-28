@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal overflow scrolling globally on all viewports */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 /* ==========================================
    ORGANIC TECH CUSTOM STYLES
    ========================================== */
