@@ -1,6 +1,6 @@
 const BOOKING_STORAGE_KEY = 'roble_studio_booking';
-const DEFAULT_BOOKING_TIMEZONE = 'America/Mexico_City';
-const DEFAULT_BOOKING_TIMEZONE_LABEL = 'CDMX';
+const DEFAULT_BOOKING_TIMEZONE = 'America/Argentina/Buenos_Aires';
+const DEFAULT_BOOKING_TIMEZONE_LABEL = 'Buenos Aires';
 const AVAILABLE_HOURS = ['09:30', '10:30', '12:00', '14:30', '15:30', '16:30'];
 const MONTH_NAMES = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -345,7 +345,7 @@ export function initBooking() {
             const startStamp = formatCalendarStamp(bookingData.dateKey, bookingData.time);
             const endStamp = formatCalendarStamp(bookingData.dateKey, addMinutesToTime(bookingData.time, 30));
             const description = escapeIcsText(
-                `Hola ${bookingData.name}. Tu Sesión de Descubrimiento con Roble Studio está agendada. Negocio: ${bookingData.business}. Principal objetivo: ${bookingData.goal}`
+                `Hola ${bookingData.name}. Tu Sesión de Descubrimiento con Roble Studio está agendada. Principal objetivo: ${bookingData.goal}`
             );
 
             const icsContent = [
@@ -428,7 +428,7 @@ export function initBooking() {
         const bookingData = {
             name: document.getElementById('client-name').value.trim(),
             email: document.getElementById('client-email').value.trim(),
-            business: document.getElementById('client-business').value.trim(),
+            business: document.getElementById('client-business')?.value.trim() || '',
             website: document.getElementById('client-website')?.value.trim() || '',
             goal: document.getElementById('client-goal').value.trim(),
             dateKey: toDateKey(selectedDate),
@@ -466,7 +466,7 @@ export function initBooking() {
                 '',
                 'Detalles del contacto:',
                 `- Nombre: ${bookingData.name}`,
-                `- Negocio: ${bookingData.business}`,
+                `- Correo: ${bookingData.email}`,
                 `- Objetivo: ${bookingData.goal}`,
                 '',
                 'Nos conectaremos a través de Google Meet.'

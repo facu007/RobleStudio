@@ -34,8 +34,13 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (heroVideo) {
         let justUnmuted = false;
-
+        let autoSkipTimeout = null;
+ 
         const skipIntro = () => {
+            if (autoSkipTimeout) {
+                clearTimeout(autoSkipTimeout);
+                autoSkipTimeout = null;
+            }
             heroVideo.pause();
             
             // Smoothly cross-fade from playing video to static cover image
@@ -45,12 +50,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 heroStaticImg.classList.remove('opacity-0');
                 heroStaticImg.classList.add('opacity-100');
             }
-
+ 
             const videoPlayOverlay = document.getElementById('video-play-overlay');
             if (videoPlayOverlay) {
                 videoPlayOverlay.remove();
             }
-
+ 
             const heroVideoWrapper = document.getElementById('hero-video-wrapper');
             if (heroVideoWrapper) {
                 // Remove initial layout & styling classes
@@ -79,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             // Remove cinema mode to restore page background, nav, and scrolling
             document.body.classList.remove('video-playing');
-
+ 
             // Trigger premium bounce & rotate entrance animation for the assistant launcher
             const launcher = document.getElementById('roble-assistant-launcher');
             if (launcher) {
@@ -97,13 +102,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             }
         };
-
+ 
         // When video finishes playing, freeze on last frame and reveal title content
         heroVideo.addEventListener('ended', skipIntro);
         
         // Safety net: in case of video loading error, skip intro smoothly
         heroVideo.addEventListener('error', skipIntro);
-
+ 
+        // Clear timeout if the video starts playing normally (meaning it loaded successfully in <3s)
+        heroVideo.addEventListener('playing', () => {
+            if (autoSkipTimeout) {
+                clearTimeout(autoSkipTimeout);
+                autoSkipTimeout = null;
+            }
+        });
+ 
         // Saltar Intro Button click handler
         const skipIntroBtn = document.getElementById('skip-intro-btn');
         if (skipIntroBtn) {
@@ -112,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 skipIntro();
             });
         }
-
+ 
         // Sync Play/Pause status of the video with the custom play overlay
         const videoPlayOverlay = document.getElementById('video-play-overlay');
         
@@ -129,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }
-
+ 
         // Toggle Play/Pause when clicking the video wrapper (during Cinema Mode)
         const heroVideoWrapper = document.getElementById('hero-video-wrapper');
         if (heroVideoWrapper) {
@@ -146,10 +159,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             });
         }
-
+ 
         // Programmatic Autoplay (Muted for browser compliance and user experience)
         heroVideo.muted = true;
         heroVideo.play().catch(e => console.log("Fallo al reproducir silenciado:", e));
+ 
+        // Set 3-second auto-skip fallback timer: if it does not load/start playing in 3 seconds, skip intro
+        autoSkipTimeout = setTimeout(() => {
+            if (document.body.classList.contains('video-playing')) {
+                console.log("Auto-skipping intro: 3 seconds elapsed without video starting to play.");
+                skipIntro();
+            }
+        }, 3000);
     }
 
     // ==========================================

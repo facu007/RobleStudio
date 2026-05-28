@@ -50,7 +50,7 @@ construye activos digitales con raíces sólidas.
 
 **Tiempos de entrega:** 4 a 8 semanas según complejidad.
 **Contacto directo:** hola@roblestudio.com
-**Ubicación:** Ciudad de México, MX
+**Ubicación:** Buenos Aires, Argentina
 
 **Equipo y Fundadores (Boutique):**
 - **Mateo Silva (Co-Fundador y Director de Diseño):** Creativo experto en UX/UI y diseño de interfaces premium y branding.
@@ -152,7 +152,7 @@ de no darte un número que no te sirva."
 simples pueden estar listos en 4 semanas; integraciones complejas con IA y
 automatizaciones pueden extenderse un poco más."
 
-**¿Trabajan con empresas fuera de México?**
+**¿Trabajan con empresas fuera de Argentina?**
 "Sí, trabajamos con clientes en toda Latinoamérica y España. El proceso es
 100% remoto y sin fricciones."
 
@@ -263,7 +263,7 @@ const response = await fetch("https://api.openai.com/v1/chat/completions", {
 | URL del calendario | #contacto (anchor) | Paso 4 |
 | Horario de respuesta | 24 hs | Fallback de email |
 | Idioma base | Español neutro | Todo el prompt |
-| Ciudad/país | Ciudad de México, MX | Pregunta sobre ubicación |
+| Ciudad/país | Buenos Aires, Argentina | Pregunta sobre ubicación |
 
 ---
 

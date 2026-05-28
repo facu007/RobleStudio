@@ -156,21 +156,52 @@ body.video-playing #hero-video-wrapper {
     cursor: pointer !important;
 }
 
-/* Glassmorphic "Saltar Intro" Skip Button */
+/* Glassmorphic "Saltar Intro" Skip Button - Redefined to be Premium Orange & Mobile-Centered */
 #skip-intro-btn {
     position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
-    right: calc(1.5rem + env(safe-area-inset-right, 0px));
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 0;
     pointer-events: none;
     transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 9999;
+    
+    /* Premium Orange Styling */
+    background-color: #db790a !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    font-size: 0.875rem !important; /* text-sm */
+    padding: 1rem 2rem !important; /* px-8 py-4, touch target > 44px */
+    border-radius: 9999px !important;
+    box-shadow: 0 10px 25px -5px rgba(219, 121, 10, 0.4), 0 8px 10px -6px rgba(219, 121, 10, 0.4) !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#skip-intro-btn:hover {
+    background-color: #c76b05 !important;
+    transform: translateX(-50%) translateY(-2px) scale(1.02) !important;
+}
+
+#skip-intro-btn:active {
+    transform: translateX(-50%) translateY(0) scale(0.98) !important;
 }
 
 @media (min-width: 768px) {
     #skip-intro-btn {
-        bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
-        right: calc(2rem + env(safe-area-inset-right, 0px));
+        left: auto !important;
+        right: 2.5rem !important;
+        bottom: 2.5rem !important;
+        transform: none !important;
+    }
+    #skip-intro-btn:hover {
+        transform: translateY(-2px) scale(1.02) !important;
+    }
+    #skip-intro-btn:active {
+        transform: translateY(0) scale(0.98) !important;
     }
 }
 
