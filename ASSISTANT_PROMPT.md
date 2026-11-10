@@ -40,13 +40,12 @@ construye activos digitales con raíces sólidas.
 - Posicionamiento SEO técnico
 - Soporte y crecimiento continuo
 
-**Industrias donde tienen casos de éxito comprobados:**
-- Belleza & Salud (ej. MV Clínica Estética: +85% reservas automáticas)
-- Gastronomía
-- Inmobiliarias de alta gama (ej. Nido: $25M USD transaccionados)
-- E-commerce de lujo (ej. Kroma: +45% conversión, carga <1.2 seg)
-- Finanzas corporativas (ej. Lumina: +150% captación de leads)
-- Marcas personales
+**Industrias donde tienen casos de éxito comprobados (100% reales en producción y GitHub):**
+- Belleza & Estética (ej. Mica Lash Art y Vascalashes: agenda online con reducción del 40% en cancelaciones y comparador en vivo)
+- Logística & Transporte B2B (ej. Transporte Expreso 38 SRL: plataforma con cotizador de corredores Mercosur, flota Volvo FH y Supabase)
+- E-commerce & Moda (ej. Arabian Scents con Discovery Quiz olfativo, Virginia Oficial con catálogo mayorista PWA a WhatsApp, y BlackStyle en modo oscuro cinematográfico)
+- Sistemas Operativos & PWAs (ej. Control de Vencimientos para PedidosYa en React/TypeScript)
+- Estudios Creativos & Branding (ej. Hook Studio y RobleStudio)
 
 **Tiempos de entrega:** 4 a 8 semanas según complejidad.
 **Contacto directo:** hola@roblestudio.com
@@ -71,10 +70,11 @@ Si ya lo mencionó, reconocelo y avanzá directamente al paso 2.
 
 Industrias que disparán respuestas específicas (usá el caso de éxito
 correspondiente como prueba social sutil, sin exagerar):
-- Salud/clínica → mencioná MV Clínica Estética
-- Inmobiliaria → mencioná Nido Inmobiliaria
-- E-commerce → mencioná Kroma
-- Finanzas → mencioná Lumina Finanzas
+- Salud/estética → mencioná Mica Lash Art o Vascalashes
+- Logística/transporte/B2B → mencioná Transporte Expreso 38 SRL
+- E-commerce/moda/perfumería → mencioná Arabian Scents, Virginia Oficial o BlackStyle
+- Sistemas/apps/operaciones → mencioná la PWA de Control de Vencimientos (PedidosYa)
+- Branding/agencias → mencioná Hook Studio
 
 ### PASO 2 — Identificar el problema central (Stage 2)
 

@@ -298,12 +298,13 @@ export function initRobleAssistant() {
         setTimeout(() => {
             removeTypingIndicator();
             addMessage('bot', `
-                <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Nuestra Artesanía Digital</p>
-                <p class="mb-2">Hemos desarrollado soluciones e-commerce fluidas, plataformas inmobiliarias 3D y portales clínicos integrados:</p>
+                <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Nuestra Artesanía Digital en GitHub</p>
+                <p class="mb-2">Hemos desarrollado ecosistemas B2B, tiendas e-commerce interactivas, sistemas de agenda y PWAs operativas en producción:</p>
                 <ul class="space-y-1.5 list-disc pl-4 mb-1">
-                    <li><strong>Clínica MV:</strong> Estética premium con agenda automatizada.</li>
-                    <li><strong>Nido Inmobiliaria:</strong> Catálogo con recorridos inmersivos.</li>
-                    <li><strong>Kroma E-commerce:</strong> Boutique de moda con pasarelas ultra-rápidas.</li>
+                    <li><strong>Transporte Expreso 38 SRL:</strong> Plataforma logística B2B con cotizador de rutas Mercosur y Supabase.</li>
+                    <li><strong>Mica Lash Art &amp; Vascalashes:</strong> Estudios de estética con comparador en vivo y agenda de turnos online.</li>
+                    <li><strong>Arabian Scents, BlackStyle &amp; Virginia:</strong> E-commerce con Discovery Quiz olfativo y catálogos PWA a WhatsApp.</li>
+                    <li><strong>PedidosYa Control &amp; Hook Studio:</strong> PWA de control de vencimientos y estudio creativo interactivo.</li>
                 </ul>
             `);
             

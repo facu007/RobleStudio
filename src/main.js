@@ -847,7 +847,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 8. PORTFOLIO FILTERING SYSTEM
     // ==========================================
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
+    const projectCards = document.querySelectorAll('#portfolio-grid .project-card');
 
     if (filterButtons.length > 0 && projectCards.length > 0) {
         filterButtons.forEach(btn => {
