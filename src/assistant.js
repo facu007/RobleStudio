@@ -844,47 +844,49 @@ export function initRobleAssistant() {
                 removeTypingIndicator();
 
                 // Keyword Router
-                if (query.includes('precio') || query.includes('costo') || query.includes('cuanto cuesta') || query.includes('presupuesto')) {
+                if (query.includes('precio') || query.includes('costo') || query.includes('cuanto cuesta') || query.includes('presupuesto') || query.includes('pack') || query.includes('plan')) {
                     addMessage('bot', `
-                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Inversión Estratégica en Roble Studio</p>
-                        <p class="mb-2">No construimos plantillas genéricas; creamos activos web a medida diseñados para generar retornos reales. Nuestras escalas de inversión recomendadas son:</p>
-                        <ul class="space-y-1 list-disc pl-4 mb-2">
-                            <li><strong>Sitios Corporativos Premium:</strong> $2,000 - $3,500 USD (enfocados en posicionamiento y captación).</li>
-                            <li><strong>E-commerce / Sistemas de Reserva:</strong> $3,500 - $5,500 USD (con pasarelas de pago y agendas automatizadas).</li>
-                            <li><strong>Ecosistemas Corporativos a Medida + IA:</strong> $6,000+ USD (integración de CRM, automatización de flujos e IA corporativa).</li>
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Paquetes e Inversión en Roble Studio (ARS)</p>
+                        <p class="mb-2">Diseñamos páginas profesionales que ayudan a tu negocio a conseguir clientes y vender más. Nuestros 3 paquetes principales son:</p>
+                        <ul class="space-y-1.5 list-disc pl-4 mb-2">
+                            <li><strong>Pack Start ($350.000 ARS):</strong> Landing page profesional adaptable a celulares, WhatsApp, formulario y SEO básico (5-7 días hábiles).</li>
+                            <li><strong>Pack Business ($750.000 ARS · Recomendado):</strong> Hasta 5 secciones, catálogo de productos/servicios, animaciones y Google Analytics (10-15 días hábiles).</li>
+                            <li><strong>Pack Premium ($1.300.000 ARS):</strong> Hasta 8 páginas, diseño UI/UX a medida, reservas/agenda online, automatizaciones y capacitación (15-25 días hábiles).</li>
+                            <li><strong>Mantenimiento mensual:</strong> Básico $35.000 · Profesional $65.000 · Premium $100.000 / mes.</li>
                         </ul>
-                        <p>Podemos hacerte una cotización express de forma inmediata en el chat.</p>
+                        <p>Trabajamos con <strong>50% de anticipo</strong> y <strong>50% contra entrega</strong>. ¡Además tenemos cupos promocionales de lanzamiento ($300.000-$400.000) para primeros clientes!</p>
                     `);
                     
                     addQuickReplyChips([
                         { text: '💼 Cotizar Proyecto', callback: () => startQuoteFlow() },
+                        { text: '📅 Agendar Llamada', callback: () => scrollAndBook() },
                         { text: '🔙 Volver al inicio', callback: () => triggerWelcomeSequence() }
                     ]);
                 } 
-                else if (query.includes('barber') || query.includes('clinica') || query.includes('tienda') || query.includes('medico') || query.includes('local') || query.includes('abogado')) {
+                else if (query.includes('barber') || query.includes('clinica') || query.includes('estetica') || query.includes('pestaña') || query.includes('gimnasio') || query.includes('restaurante') || query.includes('tienda') || query.includes('medico') || query.includes('local') || query.includes('abogado')) {
                     addMessage('bot', `
-                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Soluciones a Medida para tu Sector</p>
-                        <p class="mb-2">¡Excelente! Para este tipo de modelos de negocio, la clave reside en la <strong>fricción cero</strong>: automatizar reservas de turnos, integrar pagos ágiles y construir una imagen premium que inspire confianza instantánea.</p>
-                        <p class="mb-2">Un sitio web estratégico con integraciones de reservas puede ahorrarte hasta 12 horas semanales de gestión manual y aumentar tu conversión de visitas en un 40%.</p>
-                        <p>¿Te gustaría auditar tu web actual o pre-cotizar un ecosistema nuevo?</p>
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Soluciones a Medida para tu Rubro</p>
+                        <p class="mb-2">¡Excelente! Nos especializamos en centros de estética y pestañas, barberías, gimnasios, restaurantes, comercios de Instagram y profesionales.</p>
+                        <p class="mb-2">Podés ver ejemplos reales desarrollados por nosotros como <strong>Mica Lash Art</strong> y <strong>Vascalashes</strong> (agenda de turnos online desde $750.000 ARS) o catálogos con pedido a WhatsApp como <strong>Virginia Oficial</strong> y <strong>Arabian Scents</strong>.</p>
+                        <p>¿Te gustaría auditar tu web actual o cotizar tu sitio?</p>
                     `);
                     
                     addQuickReplyChips([
                         { text: '🔍 Auditar mi web actual', callback: () => startAuditFlow() },
-                        { text: '💼 Cotizar ecosistema premium', callback: () => startQuoteFlow() },
+                        { text: '💼 Cotizar ahora', callback: () => startQuoteFlow() },
                         { text: '🔙 Volver al inicio', callback: () => triggerWelcomeSequence() }
                     ]);
                 }
-                else if (query.includes('seo') || query.includes('posicionamiento') || query.includes('google') || query.includes('visitas')) {
+                else if (query.includes('seo') || query.includes('posicionamiento') || query.includes('google') || query.includes('visitas') || query.includes('mantenimiento')) {
                     addMessage('bot', `
-                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Estructuras de SEO Semántico</p>
-                        <p class="mb-2">En Roble Studio diseñamos cada línea de código pensando en Google. Implementamos:</p>
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">SEO Mensual y Mantenimiento Continuo</p>
+                        <p class="mb-2">Para que tu web crezca todos los meses ofrecemos planes recurrentes claros:</p>
                         <ul class="space-y-1 list-disc pl-4 mb-2">
-                            <li><strong>Marcado JSON-LD:</strong> Estructuración de datos para búsquedas enriquecidas.</li>
-                            <li><strong>Rendimiento Extremo:</strong> Tiempos de carga de sub-segundo que benefician tu Core Web Vitals.</li>
-                            <li><strong>Estructura Semántica:</strong> Jerarquías H1-H6 curadas para tus palabras clave locales e internacionales.</li>
+                            <li><strong>SEO Mensual ($80.000 a $150.000 ARS/mes):</strong> Optimización continua para aparecer primero en Google.</li>
+                            <li><strong>Mantenimiento Web ($35.000 / $65.000 / $100.000 ARS/mes):</strong> Seguridad, copias de respaldo y actualizaciones.</li>
+                            <li><strong>Rediseño Web (Desde $250.000 ARS):</strong> Modernización total de sitios desactualizados.</li>
                         </ul>
-                        <p>El posicionamiento orgánico con bases sólidas es el canal de captación más rentable a largo plazo.</p>
+                        <p>El dominio y el hosting quedan siempre 100% a nombre tuyo.</p>
                     `);
                     
                     addQuickReplyChips([
@@ -892,16 +894,15 @@ export function initRobleAssistant() {
                         { text: '💼 Cotizar proyecto', callback: () => startQuoteFlow() }
                     ]);
                 }
-                else if (query.includes('ia') || query.includes('inteligencia artificial') || query.includes('automatizacion') || query.includes('bot')) {
+                else if (query.includes('ia') || query.includes('inteligencia artificial') || query.includes('automatizacion') || query.includes('bot') || query.includes('whatsapp')) {
                     addMessage('bot', `
-                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Integración de IA y Automatizaciones</p>
-                        <p class="mb-2">El futuro digital es inteligente. Automatizamos tus cimientos operativos para que te enfoques en crecer:</p>
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Chatbots con IA y Automatización de WhatsApp</p>
+                        <p class="mb-2">Transformamos tu web en un canal de ventas activo las 24 horas:</p>
                         <ul class="space-y-1 list-disc pl-4 mb-2">
-                            <li><strong>Asistentes Inteligentes:</strong> Como el que estás usando ahora, que califican leads 24/7.</li>
-                            <li><strong>Automatizaciones de CRM:</strong> Sincronización automática de citas a agendas de Google, descargas de .ics y flujos post-llamada.</li>
-                            <li><strong>Integraciones Cloud:</strong> Conexiones robustas con Make, Zapier y APIs para eliminar tareas manuales repetitivas.</li>
+                            <li><strong>Integración de Chatbot IA (Desde $150.000 ARS):</strong> Atiende consultas y califica clientes automáticamente en tu web.</li>
+                            <li><strong>Automatización de WhatsApp (Desde $180.000 ARS):</strong> Flujos de respuesta rápida, catálogo y confirmación de turnos.</li>
+                            <li><strong>Apps Web a Medida (Desde $1.800.000 ARS):</strong> Sistemas con funciones propias y bases de datos (ej. Transporte Expreso 38 SRL o PedidosYa Control).</li>
                         </ul>
-                        <p>Diseñamos herramientas que trabajan para ti, no al revés.</p>
                     `);
                     
                     addQuickReplyChips([

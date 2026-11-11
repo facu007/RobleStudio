@@ -47,7 +47,34 @@ construye activos digitales con raíces sólidas.
 - Sistemas Operativos & PWAs (ej. Control de Vencimientos para PedidosYa en React/TypeScript)
 - Estudios Creativos & Branding (ej. Hook Studio y RobleStudio)
 
-**Tiempos de entrega:** 4 a 8 semanas según complejidad.
+**Tiempos de entrega:**
+- Pack Start (Landing Page): 5 a 7 días hábiles ($350.000 ARS)
+- Pack Business (Hasta 5 secciones, recomendado): 10 a 15 días hábiles ($750.000 ARS)
+- Pack Premium (Hasta 8 páginas, reservas/automatizaciones): 15 a 25 días hábiles ($1.300.000 ARS)
+
+**Tarifario orientativo en Pesos Argentinos (ARS · Noviembre 2026):**
+- Landing page: $350.000 a $550.000 ARS
+- Web One Page: $450.000 a $700.000 ARS
+- Web institucional (4-6 secciones): $650.000 a $950.000 ARS
+- Web con reservas y agenda: $750.000 a $1.300.000 ARS
+- Tienda online: $800.000 a $1.500.000 ARS
+- Web premium (hasta 8 páginas): $950.000 a $1.500.000 ARS
+- Aplicación web con funciones propias: Desde $1.800.000 ARS (a cotizar)
+- Beneficio de lanzamiento (primeros 3 clientes): $300.000 a $400.000 ARS a cambio de autorización para portfolio y testimonio.
+
+**Servicios adicionales y recurrentes:**
+- Mantenimiento básico: $35.000/mes | Profesional: $65.000/mes | Premium: $100.000/mes
+- SEO mensual: $80.000 a $150.000/mes
+- Carga de productos: $3.000 a $5.000 c/u
+- Integración de chatbot IA: Desde $150.000
+- Automatización de WhatsApp: Desde $180.000
+- Rediseño de página: Desde $250.000
+
+**Condiciones comerciales:**
+- 50% de anticipo para comenzar y 50% contra entrega antes de publicar.
+- 2 rondas de modificaciones incluidas (cambios fuera del alcance se cobran aparte).
+- Presupuesto válido por 7 días. Dominio y hosting a nombre del cliente (presupuestados por separado junto con licencias y consumo de IA).
+
 **Contacto directo:** hola@roblestudio.com
 **Ubicación:** Buenos Aires, Argentina
 
@@ -143,14 +170,10 @@ lo que me contaste. Sin compromiso."
 ## PREGUNTAS FRECUENTES — RESPUESTAS AUTORIZADAS
 
 **¿Cuánto cuesta?**
-"Los proyectos varían según alcance. En la llamada de 30 minutos podemos
-darte un rango real basado en tus necesidades específicas — es la única forma
-de no darte un número que no te sirva."
+"Nuestros paquetes principales arrancan en $350.000 ARS para el Pack Start (Landing Page), $750.000 ARS para el Pack Business de hasta 5 secciones (nuestro recomendado) y $1.300.000 ARS para el Pack Premium con reservas o automatizaciones. Además tenemos una tarifa promocional de lanzamiento de $300.000 a $400.000 ARS para primeros clientes a cambio de testimonio. Se abona 50% de anticipo y 50% contra entrega."
 
 **¿Cuánto tiempo tarda?**
-"Un proyecto típico toma entre 4 y 8 semanas desde el inicio. Proyectos más
-simples pueden estar listos en 4 semanas; integraciones complejas con IA y
-automatizaciones pueden extenderse un poco más."
+"Trabajamos con plazos ágiles: el Pack Start toma entre 5 y 7 días hábiles, el Pack Business entre 10 y 15 días hábiles, y el Pack Premium entre 15 y 25 días hábiles según las integraciones."
 
 **¿Trabajan con empresas fuera de Argentina?**
 "Sí, trabajamos con clientes en toda Latinoamérica y España. El proceso es

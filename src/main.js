@@ -253,67 +253,81 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const servicesData = {
         diseno: {
-            title: "Diseño Web Estratégico",
+            title: "Landing Pages & Web One Page",
             icon: "web",
-            desc: "La estética al servicio del objetivo de negocio. No diseñamos páginas decorativas; creamos flujos de información ordenados que conducen al usuario paso a paso hacia el contacto.",
-            bulletTitle: "Qué incluye el alcance:",
+            desc: "Páginas profesionales enfocadas en captar clientes y transformar visitas de redes sociales o anuncios en consultas directas por WhatsApp.",
+            bulletTitle: "Tarifario y alcance incluido:",
             bullets: [
-                "Investigación profunda de User Personas y arquitectura de información.",
-                "Wireframes estructurales de alta conversión.",
-                "Identidad visual y maquetación maquetada a medida en Figma.",
-                "Creación del Sistema de Diseño Roble (tipografía, colores, guías).",
-                "Prototipos interactivos previos a programación."
+                "Landing Page profesional (Pack Start): $350.000 a $550.000 ARS (Entrega: 5-7 días hábiles).",
+                "Web One Page completa: $450.000 a $700.000 ARS.",
+                "Web Institucional (4 a 6 secciones): $650.000 a $950.000 ARS (Entrega: 10-15 días hábiles).",
+                "Diseño 100% adaptable a celulares, botón de WhatsApp, formulario, SEO básico y redes sociales.",
+                "Incluye 2 rondas de modificaciones. Modalidad: 50% de anticipo y 50% contra entrega."
             ]
         },
         desarrollo: {
-            title: "Desarrollo Web Robusto",
-            icon: "code",
-            desc: "Programación rápida, impecable y de gran rendimiento. Nuestro código está estructurado bajo las mejores prácticas internacionales, garantizando escalabilidad técnica y velocidad extrema de carga.",
-            bulletTitle: "Ventajas técnicas incorporadas:",
+            title: "Web con Reservas y Agenda Online",
+            icon: "calendar_month",
+            desc: "Ideal para centros de estética y pestañas, barberías, peluquerías, gimnasios y profesionales independientes que quieren automatizar sus turnos.",
+            bulletTitle: "Qué incluye este desarrollo ($750.000 a $1.300.000 ARS):",
             bullets: [
-                "Código HTML5 y JS semántico y de carga ultrarrápida (<1s FCP).",
-                "Responsive Design total (optimizado de manera independiente para móviles).",
-                "Optimización extrema para Google Core Web Vitals.",
-                "SEO Técnico estructurado nativo (datos estructurados JSON-LD).",
-                "Seguridad SSL de grado empresarial e integraciones API robustas."
+                "Agenda interactiva de turnos online disponible 24/7.",
+                "Selección de servicios, profesionales, combos y horarios en tiempo real.",
+                "Demostraciones reales desarrolladas por Roble Studio: Mica Lash Art y Vascalashes.",
+                "Confirmaciones e integración directa con WhatsApp y calendario.",
+                "Entrega estimada: 10 a 20 días hábiles según complejidad."
+            ]
+        },
+        ecommerce: {
+            title: "Tienda Online & Catálogos Interactivos",
+            icon: "storefront",
+            desc: "Pensado para comercios que venden por Instagram, marcas de indumentaria, perfumerías y distribuidoras que necesitan agilizar sus pedidos.",
+            bulletTitle: "Qué incluye este desarrollo ($800.000 a $1.500.000 ARS):",
+            bullets: [
+                "Catálogo dinámico con filtros por categoría, talle, notas o precios.",
+                "Carrito de compras con envío de pedido estructurado directo a WhatsApp o pasarela de pago.",
+                "Demostraciones reales: Arabian Scents, Virginia Oficial y BlackStyle.",
+                "Servicio adicional de carga de productos: $3.000 a $5.000 ARS c/u.",
+                "Capacitación incluida para administrar productos y precios."
             ]
         },
         ia: {
-            title: "Automatización con IA",
+            title: "Chatbots con IA & Automatización WhatsApp",
             icon: "smart_toy",
-            desc: "Transformamos tu sitio en un empleado que trabaja 24/7 sin descanso. Integramos soluciones avanzadas de Inteligencia Artificial que capturan datos, resuelven dudas y automatizan tus flujos de venta.",
-            bulletTitle: "Módulos de IA y Automatización:",
+            desc: "Sumá inteligencia artificial a tu sitio web o canal de atención para responder preguntas frecuentes, calificar clientes y agendar sin demoras.",
+            bulletTitle: "Inversión y módulos disponibles:",
             bullets: [
-                "Chatbots personalizados y entrenados con tu catálogo o base de conocimiento.",
-                "Sistemas automatizados de agendamiento (vinculados a Google Calendar).",
-                "Respuestas a leads cualificados instantáneas por email o WhatsApp.",
-                "Flujos de nutrición integrados con tu CRM preferido (Hubspot, Salesforce, etc.)."
+                "Integración de Chatbot con IA en tu web: Desde $150.000 ARS.",
+                "Automatización de flujos de WhatsApp: Desde $180.000 ARS.",
+                "Aplicaciones web con funciones propias a medida: Desde $1.800.000 ARS (a cotizar).",
+                "Entrenamiento con la información real de tus servicios, precios y horarios.",
+                "Nota: licencias y consumo de APIs de IA se presupuestan por separado según volumen."
             ]
         },
         seo: {
-            title: "Posicionamiento SEO",
+            title: "Posicionamiento SEO & Rediseño Web",
             icon: "search",
-            desc: "Hacemos que tus clientes ideales te encuentren en Google antes que a tus competidores. Nuestra metodología no persigue tráfico vacío; atraemos intenciones de búsqueda con alto potencial de compra.",
-            bulletTitle: "Nuestra estrategia de SEO:",
+            desc: "Hacemos que tu negocio aparezca en Google cuando potenciales clientes buscan tus servicios en tu ciudad o a nivel nacional.",
+            bulletTitle: "Planes y servicios de optimización:",
             bullets: [
-                "Estudio minucioso de palabras clave con intención comercial clara.",
-                "Arquitectura técnica interna óptima y enlazado inteligente.",
-                "Creación y optimización de contenido premium para responder consultas clave.",
-                "Optimización de metadatos, etiquetas semánticas y jerarquías.",
-                "Reporte mensual de rendimiento y posicionamiento en el ranking."
+                "Posicionamiento SEO mensual: $80.000 a $150.000 ARS / mes.",
+                "Rediseño completo de página web existente: Desde $250.000 ARS.",
+                "Optimización de velocidad móvil (Core Web Vitals) y estructura técnica.",
+                "Configuración de Google Analytics y etiquetas semánticas locales.",
+                "Reportes periódicos de evolución y consultas generadas."
             ]
         },
         mantenimiento: {
-            title: "Mantenimiento & Soporte Premium",
+            title: "Planes de Mantenimiento & Soporte Mensual",
             icon: "build",
-            desc: "La solidez del roble requiere cuidado continuo. Nos encargamos de toda la complejidad técnica diaria de tu sitio para que tú te enfoques exclusivamente en operar tu negocio.",
-            bulletTitle: "Alcance del soporte proactivo:",
+            desc: "Asegurá que tu página funcione siempre rápido, segura y actualizada con nuestros abonos mensuales independientes.",
+            bulletTitle: "Planes mensuales sugeridos (ARS):",
             bullets: [
-                "Copias de seguridad diarias automatizadas en la nube.",
-                "Auditorías semanales de velocidad de carga y rendimiento de conversión.",
-                "Soporte prioritario técnico por email y chat ante cualquier eventualidad.",
-                "Monitoreo 24/7 contra vulnerabilidades y ciberataques.",
-                "Pequeñas actualizaciones estéticas y de contenido mensuales incluidas."
+                "Mantenimiento Básico: $35.000 ARS / mes (monitoreo, seguridad y copias de respaldo).",
+                "Mantenimiento Profesional: $65.000 ARS / mes (incluye ajustes menores y optimización mensual).",
+                "Mantenimiento Premium: $100.000 ARS / mes (soporte prioritario, actualizaciones de secciones y mejoras).",
+                "Carga adicional de productos: $3.000 a $5.000 ARS por unidad.",
+                "Dominio y hosting a nombre del cliente (presupuestados por separado)."
             ]
         }
     };
@@ -390,40 +404,40 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     const stepsData = {
         1: {
-            title: "Descubrimiento Comercial Profundo",
-            meta: "Fase 1 • Duración: Semana 1",
-            desc: "Nos sumergimos en las raíces de tu negocio. Analizamos detalladamente tu propuesta de valor, investigamos a tu competencia premium y estudiamos las objeciones y necesidades de tu cliente ideal.",
-            deliverables: "Auditoría inicial de marca, mapa de dolores de clientes y especificación técnica de objetivos de conversión."
+            title: "Diagnóstico Comercial y Alcance",
+            meta: "Fase 1 • Día 1-2",
+            desc: "Analizamos tu modelo de negocio, el rubro en el que competís (estética, gastronomía, comercio, servicios o logística) y definimos el paquete ideal con un presupuesto cerrado válido por 7 días.",
+            deliverables: "Propuesta formal de alcance, definición de pack y reserva con 50% de anticipo."
         },
         2: {
-            title: "Estructura Persuasiva & Estrategia",
-            meta: "Fase 2 • Duración: Semanas 1-2",
-            desc: "Trazamos la arquitectura de la información. Definimos los llamados a la acción (CTAs) idóneos y planificamos las automatizaciones de Inteligencia Artificial que capturarán consultas y simplificarán tu agenda de manera natural.",
-            deliverables: "Mapa de navegación estratégico, diagrama de flujo de embudo y estructura jerárquica de contenidos."
+            title: "Arquitectura de Conversión y Copywriting",
+            meta: "Fase 2 • Días 2-4",
+            desc: "Estructuramos las secciones para guiar al visitante hacia la consulta por WhatsApp, la reserva de turno o la compra en catálogo, eliminando distracciones innecesarias.",
+            deliverables: "Estructura persuasiva de secciones, llamados a la acción (CTAs) y flujo de contacto."
         },
         3: {
-            title: "Diseño Táctil y Prototipado Exclusivo",
-            meta: "Fase 3 • Duración: Semanas 2-3",
-            desc: "Comienza la creación visual bajo la guía de 'Organic Tech'. Diseñamos interfaces fluidas, de alta gama y gran legibilidad en Figma. Cada decisión tipográfica, de color y micro-animación responde a la persuasión.",
-            deliverables: "Prototipo de alta fidelidad interactivo de escritorio y móviles en Figma y Sistema de Diseño de marca."
+            title: "Diseño UI/UX Personalizado",
+            meta: "Fase 3 • Días 4-8",
+            desc: "Diseñamos una interfaz moderna, rápida y 100% adaptable a celulares que transmite profesionalismo y diferencia a tu marca de las plantillas genéricas.",
+            deliverables: "Diseño visual personalizado con animaciones y microinteracciones."
         },
         4: {
-            title: "Código de Alto Rendimiento y Estructura",
-            meta: "Fase 4 • Duración: Semanas 3-5",
-            desc: "La ingeniería toma el relevo. Codificamos tu sitio web usando las tecnologías más limpias y rápidas. Nos enfocamos en una velocidad extrema de carga móvil y en estructurar integraciones de IA robustas y libres de fricciones.",
-            deliverables: "Plataforma de desarrollo en vivo, optimización SEO técnica e integración y testeo de APIs y calendarios."
+            title: "Desarrollo, Catálogo, Agenda o IA",
+            meta: "Fase 4 • Días 6-18",
+            desc: "Programamos el sitio optimizado con tus integraciones: botón y flujos de WhatsApp, catálogo de productos, agenda de turnos online o chatbot con Inteligencia Artificial.",
+            deliverables: "Sitio funcional en entorno de prueba + hasta 2 rondas de modificaciones incluidas."
         },
         5: {
-            title: "Garantía de Calidad y Lanzamiento Seguro",
-            meta: "Fase 5 • Duración: Semana 5-6",
-            desc: "Evaluación exhaustiva. Testeamos minuciosamente el sitio en múltiples navegadores y resoluciones de pantalla para asegurar una respuesta visual perfecta. Configuramos redirecciones de seguridad, SSL y desplegamos con cero caídas.",
-            deliverables: "Checklist de QA certificado, migración final de servidor, activación de dominio SSL y entrega del sitio."
+            title: "Entrega Final y Publicación",
+            meta: "Fase 5 • 5 a 25 días hábiles según Pack",
+            desc: "Una vez aprobado el proyecto y abonado el 50% restante contra entrega, conectamos el dominio y hosting a tu nombre, configuramos Google Analytics y publicamos.",
+            deliverables: "Sitio web online con SSL activo y capacitación para administrarlo."
         },
         6: {
-            title: "Medición, Retorno de Inversión y Escalado",
-            meta: "Fase 6 • Soporte Continuo",
-            desc: "El lanzamiento es solo el inicio del roble. Analizamos el comportamiento real de los visitantes en caliente. Hacemos micro-ajustes visuales para potenciar la conversión y refinamos las respuestas automatizadas de la IA.",
-            deliverables: "Panel de analíticas de usuario activo, informe inicial de captación y optimizaciones continuas de conversión."
+            title: "Mantenimiento Mensual y Crecimiento",
+            meta: "Fase 6 • Abono Opcional ($35k a $100k/mes)",
+            desc: "Acompañamos el crecimiento de tu negocio con planes mensuales de mantenimiento, carga de productos, mejoras continuas y posicionamiento SEO mensual.",
+            deliverables: "Soporte técnico continuo, actualizaciones de seguridad y reportes de rendimiento."
         }
     };
     
