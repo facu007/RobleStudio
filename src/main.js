@@ -292,16 +292,16 @@ document.addEventListener("DOMContentLoaded", () => {
             ]
         },
         ia: {
-            title: "Chatbots con IA & Automatización WhatsApp",
-            icon: "smart_toy",
-            desc: "Sumá inteligencia artificial a tu sitio web o canal de atención para responder preguntas frecuentes, calificar clientes y agendar sin demoras.",
+            title: "Automatización de WhatsApp & Apps a Medida",
+            icon: "chat",
+            desc: "Optimizá tu canal de atención y operaciones con flujos directos de WhatsApp y aplicaciones web con funciones propias adaptadas a tu negocio.",
             bulletTitle: "Inversión y módulos disponibles:",
             bullets: [
-                "Integración de Chatbot con IA en tu web: Desde $150.000 ARS.",
                 "Automatización de flujos de WhatsApp: Desde $180.000 ARS.",
+                "Web Institucional corporativa (4 a 6 secciones): $650.000 a $950.000 ARS.",
                 "Aplicaciones web con funciones propias a medida: Desde $1.800.000 ARS (a cotizar).",
-                "Entrenamiento con la información real de tus servicios, precios y horarios.",
-                "Nota: licencias y consumo de APIs de IA se presupuestan por separado según volumen."
+                "Demostraciones reales: Transporte Expreso 38 SRL y Control de Vencimientos PedidosYa.",
+                "Nota: licencias y plataformas externas se presupuestan por separado según requerimiento."
             ]
         },
         seo: {
@@ -422,9 +422,9 @@ document.addEventListener("DOMContentLoaded", () => {
             deliverables: "Diseño visual personalizado con animaciones y microinteracciones."
         },
         4: {
-            title: "Desarrollo, Catálogo, Agenda o IA",
+            title: "Desarrollo, Catálogo y Agenda Online",
             meta: "Fase 4 • Días 6-18",
-            desc: "Programamos el sitio optimizado con tus integraciones: botón y flujos de WhatsApp, catálogo de productos, agenda de turnos online o chatbot con Inteligencia Artificial.",
+            desc: "Programamos el sitio optimizado con tus integraciones: botón y flujos de WhatsApp, catálogo de productos, agenda de turnos online o funciones a medida.",
             deliverables: "Sitio funcional en entorno de prueba + hasta 2 rondas de modificaciones incluidas."
         },
         5: {

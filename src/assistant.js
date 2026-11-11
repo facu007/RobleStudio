@@ -622,7 +622,7 @@ export function initRobleAssistant() {
                     opportunities.push('<strong>Conversión proactiva:</strong> Integra agendamiento automatizado de citas.');
                 } else {
                     opportunities.push('<strong>Testimoniales premium:</strong> Muestra testimonios en el hero para inspirar confianza.');
-                    opportunities.push('<strong>Asistente inteligente:</strong> Introduce bots conversacionales para guiar al usuario.');
+                    opportunities.push('<strong>Contacto directo:</strong> Integra botones persistentes de WhatsApp para agilizar consultas.');
                 }
             }
 
@@ -894,13 +894,13 @@ export function initRobleAssistant() {
                         { text: '💼 Cotizar proyecto', callback: () => startQuoteFlow() }
                     ]);
                 }
-                else if (query.includes('ia') || query.includes('inteligencia artificial') || query.includes('automatizacion') || query.includes('bot') || query.includes('whatsapp')) {
+                else if (query.includes('automatizacion') || query.includes('whatsapp') || query.includes('sistema') || query.includes('app')) {
                     addMessage('bot', `
-                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Chatbots con IA y Automatización de WhatsApp</p>
+                        <p class="font-bold mb-1 text-[#1F3A2E] dark:text-[#F3F0EB]">Automatización de WhatsApp y Sistemas a Medida</p>
                         <p class="mb-2">Transformamos tu web en un canal de ventas activo las 24 horas:</p>
                         <ul class="space-y-1 list-disc pl-4 mb-2">
-                            <li><strong>Integración de Chatbot IA (Desde $150.000 ARS):</strong> Atiende consultas y califica clientes automáticamente en tu web.</li>
                             <li><strong>Automatización de WhatsApp (Desde $180.000 ARS):</strong> Flujos de respuesta rápida, catálogo y confirmación de turnos.</li>
+                            <li><strong>Web con Reservas y Agenda ($750.000 a $1.300.000 ARS):</strong> Turnos online 24/7 para tu negocio.</li>
                             <li><strong>Apps Web a Medida (Desde $1.800.000 ARS):</strong> Sistemas con funciones propias y bases de datos (ej. Transporte Expreso 38 SRL o PedidosYa Control).</li>
                         </ul>
                     `);

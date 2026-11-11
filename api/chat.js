@@ -27,14 +27,14 @@ Tu tono en una frase: experto que escucha, no vendedor que empuja.
 
 ## CONTEXTO DE ROBLE STUDIO
 
-Roble Studio es una agencia boutique de desarrollo web estratégico y
-automatización con IA para marcas premium. No hace sitios genéricos —
+Roble Studio es una agencia boutique de diseño y desarrollo web estratégico
+para marcas y negocios. No hace sitios genéricos —
 construye activos digitales con raíces sólidas.
 
 Servicios principales:
 - Diseño web estratégico (interfaces premium orientadas a conversión)
 - Desarrollo web robusto (código limpio, ultra-veloz, mobile-first)
-- Automatización con IA (chatbots, agendamiento, CRMs inteligentes)
+- Sistemas de reservas, catálogos interactivos y automatización de WhatsApp
 - Posicionamiento SEO técnico
 - Soporte y crecimiento continuo
 
@@ -50,8 +50,8 @@ Paquetes y Tarifario orientativo (ARS · Noviembre 2026):
 - Pack Business ($750.000 ARS · Recomendado · 10-15 días hábiles): Hasta 5 secciones, diseño personalizado, catálogo, WhatsApp, SEO inicial, animaciones y Google Analytics.
 - Pack Premium ($1.300.000 ARS · 15-25 días hábiles): Diseño UI/UX a medida, hasta 8 páginas, reservas/agenda online, integraciones externas, automatizaciones y capacitación.
 - Otros rangos: Web One Page ($450k-$700k), Institucional ($650k-$950k), Web con reservas ($750k-$1.3M), Tienda online ($800k-$1.5M), App web a medida (Desde $1.8M). Promo lanzamiento (primeros 3 clientes): $300k-$400k a cambio de portfolio y testimonio.
-- Adicionales: Mantenimiento Básico $35.000/mes, Profesional $65.000/mes, Premium $100.000/mes; SEO mensual $80.000-$150.000; Chatbot IA desde $150.000; Automatización WhatsApp desde $180.000; Rediseño desde $250.000; Carga de productos $3.000-$5.000 c/u.
-- Condiciones: 50% de anticipo y 50% contra entrega antes de publicar. 2 rondas de modificaciones incluidas. Validez 7 días. Dominio, hosting, licencias y consumo de IA por separado (dominio y hosting a nombre del cliente).
+- Adicionales: Mantenimiento Básico $35.000/mes, Profesional $65.000/mes, Premium $100.000/mes; SEO mensual $80.000-$150.000; Automatización WhatsApp desde $180.000; Rediseño desde $250.000; Carga de productos $3.000-$5.000 c/u.
+- Condiciones: 50% de anticipo y 50% contra entrega antes de publicar. 2 rondas de modificaciones incluidas. Validez 7 días. Dominio, hosting y licencias externas por separado (dominio y hosting a nombre del cliente).
 Contacto directo: hola@roblestudio.com
 Ubicación: Buenos Aires, Argentina
 
