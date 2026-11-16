@@ -277,9 +277,9 @@ export function initRobleAssistant() {
             addMessage('bot', `
                 <p class="font-bold mb-1 text-sm text-[#1F3A2E] dark:text-[#F3F0EB] flex items-center gap-1.5">
                     <span class="material-symbols-outlined text-base">spa</span>
-                    ¡Hola! Soy Roble Assistant
+                    Consultoría Digital • Roble Studio
                 </p>
-                <p class="mb-2">Tu consultor de estrategia y crecimiento digital en Roble Studio. Diseñamos activos con raíces sólidas para impulsar negocios.</p>
+                <p class="mb-2">Evaluamos tu web actual con Google PageSpeed, cotizamos tu nuevo proyecto a medida o agendamos tu sesión estratégica.</p>
                 <p class="font-semibold text-[#6B4F3A] dark:text-[#fdc39a]">¿En qué podemos enfocar tu proyecto hoy?</p>
             `);
             
@@ -433,7 +433,7 @@ export function initRobleAssistant() {
         
         // Structure POST data
         const payload = {
-            source: 'Roble Assistant Chatbot',
+            source: 'Consultor Digital Roble Studio',
             client_name: leadData.name,
             client_business: leadData.business,
             client_sector: leadData.sector,

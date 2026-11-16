@@ -991,4 +991,160 @@ document.addEventListener("DOMContentLoaded", () => {
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
         init3DTilt();
     }
+
+    // ==========================================================
+    // 11. PRE-SELECCIÓN DE PACKS, CALCULADORA 50/50 Y WHATSAPP DIRECTO
+    // ==========================================================
+    const whatsappPhone = (import.meta.env.VITE_WHATSAPP_NUMBER || '').replace(/\D/g, '');
+    const buildWhatsAppUrl = (message) => {
+        const base = whatsappPhone ? `https://wa.me/${whatsappPhone}` : 'https://wa.me/';
+        return `${base}?text=${encodeURIComponent(message)}`;
+    };
+
+    const formatArs = (num) => '$' + Math.round(num).toLocaleString('es-AR') + ' ARS';
+
+    const selectedPackBanner = document.getElementById('selected-pack-banner');
+    const selectedPackText = document.getElementById('selected-pack-text');
+    const clearSelectedPackBtn = document.getElementById('clear-selected-pack-btn');
+    const clientGoalInput = document.getElementById('client-goal');
+    const directWhatsappCta = document.getElementById('direct-whatsapp-cta');
+
+    const applySelectedPlan = (planDescription) => {
+        if (selectedPackBanner && selectedPackText) {
+            selectedPackText.textContent = planDescription;
+            selectedPackBanner.classList.remove('hidden');
+        }
+        if (clientGoalInput) {
+            clientGoalInput.value = `Plan elegido: ${planDescription}. `;
+        }
+        if (directWhatsappCta) {
+            directWhatsappCta.href = buildWhatsAppUrl(
+                `¡Hola Roble Studio! Me interesa consultar por: ${planDescription}.`
+            );
+        }
+    };
+
+    if (clearSelectedPackBtn && selectedPackBanner) {
+        clearSelectedPackBtn.addEventListener('click', () => {
+            selectedPackBanner.classList.add('hidden');
+            if (selectedPackText) selectedPackText.textContent = '';
+            if (clientGoalInput && clientGoalInput.value.startsWith('Plan elegido:')) {
+                clientGoalInput.value = '';
+            }
+            if (directWhatsappCta) {
+                directWhatsappCta.href = buildWhatsAppUrl(
+                    '¡Hola Roble Studio! Me interesa consultar por el desarrollo de una página web profesional.'
+                );
+            }
+        });
+    }
+
+    // Initialize default WhatsApp URL
+    if (directWhatsappCta) {
+        directWhatsappCta.href = buildWhatsAppUrl(
+            '¡Hola Roble Studio! Me interesa consultar por el desarrollo de una página web profesional.'
+        );
+    }
+
+    // Bind Pack buttons in #planes
+    document.querySelectorAll('.pack-select-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const packLabel = btn.getAttribute('data-pack-select');
+            if (packLabel) {
+                applySelectedPlan(packLabel);
+            }
+        });
+    });
+
+    // Interactive Budget & 50/50 Deposit Calculator
+    const calcProjectType = document.getElementById('calc-project-type');
+    const calcAddonWa = document.getElementById('calc-addon-wa');
+    const calcAddonRedesign = document.getElementById('calc-addon-redesign');
+    const calcMonthlyPlan = document.getElementById('calc-monthly-plan');
+    const calcMonthlySeo = document.getElementById('calc-monthly-seo');
+
+    const calcTotalDisplay = document.getElementById('calc-total-display');
+    const calcDepositDisplay = document.getElementById('calc-deposit-display');
+    const calcFinalDisplay = document.getElementById('calc-final-display');
+    const calcMonthlyDisplay = document.getElementById('calc-monthly-display');
+    const calcDeliveryBadge = document.getElementById('calc-delivery-badge');
+    const calcApplyBookingBtn = document.getElementById('calc-apply-booking-btn');
+    const calcWhatsappBtn = document.getElementById('calc-whatsapp-btn');
+
+    const updateCalculator = () => {
+        if (!calcProjectType) return null;
+
+        const selectedOption = calcProjectType.options[calcProjectType.selectedIndex];
+        const basePrice = Number(calcProjectType.value) || 0;
+        const baseLabel = selectedOption?.getAttribute('data-label') || 'Desarrollo Web';
+        const deliveryDays = selectedOption?.getAttribute('data-days') || '10 a 15 días hábiles';
+
+        let oneTimeTotal = basePrice;
+        const extras = [];
+
+        if (calcAddonWa?.checked) {
+            oneTimeTotal += Number(calcAddonWa.value) || 0;
+            extras.push('Automatización WhatsApp');
+        }
+        if (calcAddonRedesign?.checked) {
+            oneTimeTotal += Number(calcAddonRedesign.value) || 0;
+            extras.push('Rediseño Web');
+        }
+
+        const deposit = oneTimeTotal / 2;
+
+        const monthlyOption = calcMonthlyPlan?.options[calcMonthlyPlan.selectedIndex];
+        let monthlyTotal = Number(calcMonthlyPlan?.value) || 0;
+        const monthlyParts = [];
+        if (monthlyTotal > 0 && monthlyOption) {
+            monthlyParts.push(monthlyOption.getAttribute('data-label') || 'Mantenimiento');
+        }
+        if (calcMonthlySeo?.checked) {
+            monthlyTotal += Number(calcMonthlySeo.value) || 0;
+            monthlyParts.push('SEO Mensual');
+        }
+
+        if (calcTotalDisplay) calcTotalDisplay.textContent = formatArs(oneTimeTotal);
+        if (calcDepositDisplay) calcDepositDisplay.textContent = formatArs(deposit);
+        if (calcFinalDisplay) calcFinalDisplay.textContent = formatArs(deposit);
+        if (calcDeliveryBadge) calcDeliveryBadge.textContent = deliveryDays;
+        if (calcMonthlyDisplay) {
+            calcMonthlyDisplay.textContent = monthlyTotal > 0
+                ? `$${monthlyTotal.toLocaleString('es-AR')} / mes`
+                : 'Sin abono mensual ($0)';
+        }
+
+        const extrasText = extras.length > 0 ? ` + ${extras.join(' + ')}` : '';
+        const monthlyText = monthlyTotal > 0 ? ` | Abono: $${monthlyTotal.toLocaleString('es-AR')}/mes (${monthlyParts.join(' + ')})` : '';
+        const summary = `${baseLabel}${extrasText} — Total: ${formatArs(oneTimeTotal)} (Anticipo 50%: ${formatArs(deposit)} · Entrega: ${deliveryDays})${monthlyText}`;
+
+        if (calcWhatsappBtn) {
+            calcWhatsappBtn.href = buildWhatsAppUrl(
+                `¡Hola Roble Studio! Armé este presupuesto en la web y quiero consultar disponibilidad:\n• ${summary}`
+            );
+        }
+
+        return summary;
+    };
+
+    if (calcProjectType) {
+        [calcProjectType, calcAddonWa, calcAddonRedesign, calcMonthlyPlan, calcMonthlySeo].forEach((el) => {
+            if (el) el.addEventListener('change', updateCalculator);
+        });
+
+        updateCalculator();
+
+        if (calcApplyBookingBtn) {
+            calcApplyBookingBtn.addEventListener('click', () => {
+                const summary = updateCalculator();
+                if (summary) {
+                    applySelectedPlan(summary);
+                }
+                const contactSection = document.getElementById('contacto');
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+    }
 });
