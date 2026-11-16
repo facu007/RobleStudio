@@ -63,8 +63,25 @@
     }
     </script>
 
-    <!-- A prueba de fallos: Detección de protocolo file:// (doble clic) -->
+    <!-- A prueba de fallos: Resolución automática de imágenes/videos en file:// o Live Server y Vite -->
     <script>
+        window.addEventListener('error', (e) => {
+            const el = e.target;
+            if (!el || !el.tagName) return;
+            const tag = el.tagName.toUpperCase();
+            if ((tag === 'IMG' || tag === 'SOURCE' || tag === 'VIDEO') && !el.dataset.publicFallback) {
+                const rawSrc = el.getAttribute('src');
+                if (rawSrc && !rawSrc.startsWith('public/') && !rawSrc.startsWith('http') && !rawSrc.startsWith('data:')) {
+                    el.dataset.publicFallback = '1';
+                    const cleanSrc = rawSrc.replace(/^\.?\//, '');
+                    el.src = 'public/' + cleanSrc;
+                    if (tag === 'SOURCE' && el.parentElement && el.parentElement.tagName === 'VIDEO') {
+                        el.parentElement.load();
+                    }
+                }
+            }
+        }, true);
+
         if (window.location.protocol === 'file:') {
             document.addEventListener('DOMContentLoaded', () => {
                 // Eliminar bloqueo de pantalla en negro
@@ -174,7 +191,7 @@
                             Your browser does not support the video tag.
                         </video>
                         <!-- Cover Image for smooth cinematic cross-fade when intro finishes -->
-                        <img id="hero-static-img" src="video/arbol.jpeg" alt="Roble Studio" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[1000ms] cubic-bezier(0.4, 0, 0.2, 1) pointer-events-none z-10" />
+                        <img id="hero-static-img" src="video/arbol.jpeg" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/video/arbol.jpeg';}" alt="Roble Studio" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-[1000ms] cubic-bezier(0.4, 0, 0.2, 1) pointer-events-none z-10" />
                         <!-- Play/Pause Overlay Button -->
                         <div id="video-play-overlay" class="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 pointer-events-none transition-all duration-500 z-20">
                             <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-surface/30 dark:bg-primary/30 backdrop-blur-md border border-outline-variant/30 flex items-center justify-center text-white transition-all transform scale-90 hover:scale-100 shadow-2xl">
@@ -795,7 +812,7 @@
                     <!-- Featured Project 1: Transporte Expreso 38 SRL -->
                     <div class="group bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col animate-on-scroll">
                         <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                            <img alt="Transporte Expreso 38 SRL" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="expreso38.webp"/>
+                            <img alt="Transporte Expreso 38 SRL" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="expreso38.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/expreso38.webp';}"/>
                             <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Logística B2B &amp; Mercosur</div>
                         </div>
                         <div class="p-8 flex-grow flex flex-col justify-between">
@@ -836,7 +853,7 @@
                     <!-- Featured Project 2: Mica Lash Art -->
                     <div class="group bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col animate-on-scroll" style="animation-delay: 0.1s;">
                         <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                            <img alt="Mica Lash Art" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="mica_lashart.webp"/>
+                            <img alt="Mica Lash Art" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="mica_lashart.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/mica_lashart.webp';}"/>
                             <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Estética VIP &amp; Academia</div>
                         </div>
                         <div class="p-8 flex-grow flex flex-col justify-between">
@@ -898,7 +915,7 @@
                         <!-- Project Card 1: Transporte Expreso 38 SRL (sistemas) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="sistemas">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="Transporte Expreso 38 SRL" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="expreso38.webp"/>
+                                <img alt="Transporte Expreso 38 SRL" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="expreso38.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/expreso38.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Logística B2B &amp; Flota</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -939,7 +956,7 @@
                         <!-- Project Card 2: Mica Lash Art (wellness) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="wellness" style="animation-delay: 0.1s;">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="Mica Lash Art" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="mica_lashart.webp"/>
+                                <img alt="Mica Lash Art" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="mica_lashart.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/mica_lashart.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Estudio de Miradas VIP</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -980,7 +997,7 @@
                         <!-- Project Card 3: Control de Vencimientos - PedidosYa (sistemas) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="sistemas" style="animation-delay: 0.2s;">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="Control de Vencimientos - PedidosYa" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="pedidosya_control.webp"/>
+                                <img alt="Control de Vencimientos - PedidosYa" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="pedidosya_control.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/pedidosya_control.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">PWA &amp; Operaciones</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -1021,7 +1038,7 @@
                         <!-- Project Card 4: Arabian Scents (ecommerce) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="ecommerce" style="animation-delay: 0.3s;">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="Arabian Scents" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="arabian_scents.webp"/>
+                                <img alt="Arabian Scents" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="arabian_scents.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/arabian_scents.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Boutique Perfumes Lujo</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -1062,7 +1079,7 @@
                         <!-- Project Card 5: Vascalashes (wellness) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="wellness" style="animation-delay: 0.4s;">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="Vascalashes" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="vascalashes.webp"/>
+                                <img alt="Vascalashes" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="vascalashes.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/vascalashes.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Salud y Estética</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -1103,7 +1120,7 @@
                         <!-- Project Card 6: BlackStyle (ecommerce) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="ecommerce" style="animation-delay: 0.5s;">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="BlackStyle" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="blackstyle.webp"/>
+                                <img alt="BlackStyle" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="blackstyle.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/blackstyle.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Moda y Catálogo</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -1144,7 +1161,7 @@
                         <!-- Project Card 7: Virginia Oficial (ecommerce) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="ecommerce" style="animation-delay: 0.1s;">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="Virginia Oficial" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="virginia_landing.webp"/>
+                                <img alt="Virginia Oficial" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="virginia_landing.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/virginia_landing.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Streetwear Mayorista</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -1185,7 +1202,7 @@
                         <!-- Project Card 8: Hook Studio (agencia) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="agencia" style="animation-delay: 0.2s;">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="Hook Studio" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="hook_framework.webp"/>
+                                <img alt="Hook Studio" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="hook_framework.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/hook_framework.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Estudio Creativo</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -1226,7 +1243,7 @@
                         <!-- Project Card 9: RobleStudio (agencia) -->
                         <div class="project-card flex flex-col bg-surface-container-lowest dark:bg-primary-container/40 border border-outline-variant/30 dark:border-outline-variant/10 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform animate-on-scroll" data-category="agencia" style="animation-delay: 0.3s;">
                             <div class="aspect-video relative overflow-hidden bg-surface-container dark:bg-primary-container">
-                                <img alt="RobleStudio" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="roblestudio_github.webp"/>
+                                <img alt="RobleStudio" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" decoding="async" loading="lazy" src="roblestudio_github.webp" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/roblestudio_github.webp';}"/>
                                 <div class="absolute top-4 left-4 bg-surface/90 dark:bg-primary-container/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-xs text-primary dark:text-inverse-on-surface shadow-sm">Arquitectura Web &amp; Conversión</div>
                             </div>
                             <div class="p-6 flex-grow flex flex-col justify-between">
@@ -1407,7 +1424,7 @@
                             <!-- Circular Oak Logo Emblem -->
                             <div class="relative mb-8 group">
                                 <div class="w-44 h-44 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-secondary/30 dark:border-secondary-fixed/30 shadow-2xl bg-primary flex items-center justify-center relative">
-                                    <img src="video/arbol.jpeg" alt="Logo Roble Studio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                    <img src="video/arbol.jpeg" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='public/video/arbol.jpeg';}" alt="Logo Roble Studio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                                 </div>
                                 <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-primary dark:bg-secondary text-white px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 border border-white/15 whitespace-nowrap">
                                     <span class="material-symbols-outlined text-secondary dark:text-white text-base">spa</span>
